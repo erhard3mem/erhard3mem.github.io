@@ -113,6 +113,7 @@
   }
 
   .welcome {
-    color:#1a1a1a;
-    font-size:1000px;
+    color:#302f2c;
+    font-size:400px;
+    position: absolute;
   }
