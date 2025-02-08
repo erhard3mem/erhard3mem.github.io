@@ -114,17 +114,44 @@
   }
 
   .welcome {
-    position: absolute; /* Ensure the element is positioned relative to its container */
-    top: 0;             /* Position at the top of the screen */
-    left: 0;            /* Position at the left of the screen */
-    width: 100vw;       /* Stretch to the full width of the viewport */
-    height: 100vh;      /* Stretch to the full height of the viewport */
-    background-color: #1e5f8a; /* Just a background color for visibility */
+    position: absolute; /* Ensure the element is positioned relative to the container */
+    top: 50%;            /* Center it vertically */
+    left: 50%;           /* Center it horizontally */
+    width: 100vw;        /* Full width of the viewport */
+    height: 100vh;       /* Full height of the viewport */
+    background-color: #3498db; /* Just a background color for visibility */
     
-    transform: rotate(45deg); /* Rotate the element by 45 degrees */
+    transform: translate(-50%, -50%) rotate(45deg); /* Center and rotate the element */
     transform-origin: center; /* Ensure rotation is from the center */
+    
+    display: flex;         /* Use Flexbox to center the text */
+    justify-content: center; /* Center text horizontally */
+    align-items: center;    /* Center text vertically */
+    color: white;           /* Text color */
+    font-size: 2rem;        /* Font size */
+  }
+
+  .welcome {
+    position: absolute; /* Ensure the element is positioned relative to the container */
+    top: 50%;            /* Position the element at the center vertically */
+    left: 50%;           /* Position the element at the center horizontally */
+    width: 100vw;        /* Full width of the viewport */
+    height: 100vh;       /* Full height of the viewport */
+    background-color: #3498db; /* Just a background color for visibility */
+    
+    transform: translate(-50%, -50%) rotate(45deg); /* Center the element and rotate it */
+    transform-origin: center; /* Ensure rotation happens from the center */
+  }
+  
+  .welcome span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-45deg); /* Rotate the text back to normal orientation */
+    color: white; /* Text color */
+    font-size: 2rem; /* Font size */
   }
 
   .c0 {
-    margin-top:100px;
+    margin-top:50px;
   }
