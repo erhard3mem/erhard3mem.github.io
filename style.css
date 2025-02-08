@@ -39,11 +39,11 @@
     margin-left:20px;
   }
 
-  .c a {
+  .c1 a {
     color:white;
     font-family: "Roboto Mono";
   }
-  .c a:hover {
+  .c1 a:hover {
     background-color: antiquewhite;
     color:black;
   }
