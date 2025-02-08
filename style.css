@@ -147,6 +147,8 @@
     display: flex;          /* This will place the items on the same line */
     justify-content: space-between; /* This will add space between the items */
     align-items: center;
+    width:550px;
+    height: 150px;
   }
 
   .welcome {
