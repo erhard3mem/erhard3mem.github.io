@@ -47,11 +47,7 @@ html {
     min-height: 100vh;
     padding: 20px;
     flex-direction: column;
-    gap: 20px;
-
-    background-color: #4a4a22;
-    opacity: 0.2;
-    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #4a4a22 10px ), repeating-linear-gradient( #444cf755, #444cf7 );
+    gap: 20px;  
   }
   
   /* Main content container */
