@@ -51,7 +51,7 @@ html {
   
   /* Main content container */
   .c {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(100, 40, 135, 0.77);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 40px;
