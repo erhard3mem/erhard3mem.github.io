@@ -143,6 +143,12 @@
     margin:10px;
   }
  
+  .wcc {
+    display: flex;          /* This will place the items on the same line */
+    justify-content: space-between; /* This will add space between the items */
+    align-items: center;
+  }
+
   .welcome {
     font-family: 'Roboto Mono';
     font-size: 10px;
@@ -153,5 +159,5 @@
 
   .selfie {
     width:10%;
-    
+    margin-left:200px;
   }
