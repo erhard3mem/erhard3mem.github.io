@@ -39,6 +39,10 @@
     color:white;
     font-family: "Roboto Mono";
   }
+  .c a:hover {
+    padding:10px;
+    background-color: antiquewhite;
+  }
   
   h1 {
     color: #ff6b6b;
