@@ -16,6 +16,7 @@
     padding: 20px;
     flex-direction: column;
     gap: 20px;
+    overflow:hidden;
   }
   
   /* Main content container */
@@ -113,7 +114,13 @@
   }
 
   .welcome {
-    color:#302f2c;
-    font-size:400px;
-    position: absolute;
+    position: absolute; /* Ensure the element is positioned relative to its container */
+    top: 0;             /* Position at the top of the screen */
+    left: 0;            /* Position at the left of the screen */
+    width: 100vw;       /* Stretch to the full width of the viewport */
+    height: 100vh;      /* Stretch to the full height of the viewport */
+    background-color: #1e5f8a; /* Just a background color for visibility */
+    
+    transform: rotate(45deg); /* Rotate the element by 45 degrees */
+    transform-origin: center; /* Ensure rotation is from the center */
   }
