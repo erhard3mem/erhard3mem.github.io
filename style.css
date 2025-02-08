@@ -178,3 +178,10 @@
     height: 60px;
     display: block;
   }
+
+  .c1 {
+    background-color: #4a4a22;
+  }
+  .c2 {
+    background-color: darkcyan;
+  }
