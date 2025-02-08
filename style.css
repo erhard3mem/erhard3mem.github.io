@@ -75,6 +75,7 @@
   }
 
   .cc ul li {
+    margin-top: 20px;
     margin-right:20px;
     width: 100px;
   }
@@ -174,6 +175,6 @@
   }
   
   .cc span {
-    height: 70px;
+    height: 60px;
     display: block;
   }
