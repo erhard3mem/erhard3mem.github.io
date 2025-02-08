@@ -18,6 +18,7 @@
             align-items: center; /* Center content vertically */
             height: 100vh; /* Full viewport height */
             box-sizing: border-box;
+            overflow-y: hidden;
         }
 
         /* Container styling */
@@ -80,10 +81,34 @@
             width:30%;
             height:30%;
         }
-        ol, ul {
+        ul {
             list-style: none;
             padding-left:0px;
         }
+
+        #photos {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns to fit within 50% width */
+            gap: 10px; /* Spacing between items */
+            list-style: none;
+            padding: 0;
+            width: 50vw; /* 50% of the viewport width */
+        }
+
+        #photos li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #photos img {
+            width: 100%; /* Make images fit within the grid cell */
+            height: auto;
+            max-width: 100px; /* Limit image size */
+            border-radius: 5px;
+        }
+
 
         #id2 pre {
             word-break: break-all;
@@ -91,14 +116,18 @@
         }
 
         #content {
+            display:block;            
             overflow-y: auto; 
-            max-height: 400px;
+            height:50%
         }
 
         #content h1 {
-            padding:20px;
-            color:white;
-            background-color: black;
+            padding: 20px;
+            color: black;
+            /* background-color: black; */
+            position: absolute;
+            top: 200px;
+            font-size: 50px;
         }
 
         #id3 div {
@@ -111,119 +140,130 @@
         }
 
         #id4 li {
-            font-size:10px;
+            font-size:14px;
+        }
+
+        .img-hover {
+            position: absolute;
+            top:25%;
+            left:25%;
+            width: 25% !important;
+            height: 50% !important; 
+            max-width: none !important;           
+            background-color:white;
+            padding:20px;
+            border:1px solid black;
+        }
+
+        #id3 li {
+            width:600px;
+            margin:100px;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="head">Welcome home! @ Erhard Einsiedler<br />
-        <p><img style="width:350px" src="public/Schwauna.png" alt="on a map"></p></div>
-        <div id="body">
-            <ul id="contentList">
-                <li id="1">Photography</li>
-                <li id="2">Coding</li>
-                <li id="3">Writing</li>
-                <li id="4">Browsing the web...</li>
+    <div id="head">Welcome home! @ Erhard Einsiedler<br />
+        <p><img style="width:350px" src="public/Schwauna.png" alt="on a map"></p>
+        <ul id="contentList">
+            <li id="1">Photography</li>
+            <li id="2">Coding</li>
+            <li id="3">Writing</li>
+            <li id="4">Browsing the web...</li>
+        </ul>
+    </div>
+    <div style="margin-left:50px;margin-right:50px;border-left:1px solid black;height:800px"></div>
+    <div id="content">                
+        <div id="id1">
+            <h1>Photography</h1>
+            <ol id="photos">
+                <li style="background-color: #333;color:white;";><h2>California 2018</h2></li>                       
+                <li><h5>Pier 39</h5><a href="public/P1020068.JPG"><img src="public/P1020068.JPG" alt="Pier 39 animals"></a></li>
+                <li><h5>San Francisco</h5><a href="public/P1020137.JPG"><img src="public/P1020137.JPG" alt="SFO skyline"></a></li>
+                <li><h5>Harvey Milk</h5><a href="public/P1020128.JPG"><img src="public/P1020128.JPG" alt="Harvey Milk"></a></li>
+                <li><h5>Santa Barbara</h5><a href="public/P1020180.JPG"><img src="public/P1020180.JPG" alt="Santa Barbara"></a></li>
+                <li><h5>Malibu</h5><a href="public/P1020197.JPG"><img src="public/P1020197.JPG" alt="Malibu"></a></li>
+                <li><h5>Surfing</h5><a href="public/P1020215.JPG"><img src="public/P1020215.JPG" alt="Surfing"></a></li>
+                <li><h5>Las Vegas</h5><a href="public/P1020278.JPG"><img src="public/P1020278.JPG" alt="Las Vegas"></a></li>
+                <li><h5>Las Vegas</h5><a href="public/P1020292.JPG"><img src="public/P1020292.JPG" alt="Las Vegas 2"></a></li>
+                <li><h5>Gran Canyon</h5><a href="public/P1020320.JPG"><img src="public/P1020320.JPG" alt="Gran Canyon"></a></li>
+                <li><h5>Death Valley</h5><a href="public/P1020375.JPG"><img src="public/P1020375.JPG" alt="Death Valley"></a></li>
+                <li><h5>Golden Gate Bridge</h5><a href="public/P1020423.JPG"><img src="public/P1020423.JPG" alt="GGB"></a></li>
+                <li><h5>Sequoia</h5><a href="public/P1020468.JPG"><img src="public/P1020468.JPG" alt="Sequoia"></a></li>
+                <li><h5>The sea</h5><a href="public/P1020501.JPG"><img src="public/P1020501.JPG" alt="The sea"></a></li>
+                <li><h5>Fun park</h5><a href="public/P1020505.JPG"><img src="public/P1020505.JPG" alt="Fun park"></a></li>
+                <li style="background-color: #333;color:white;"><h2>Others 2018</h2></li>                       
+                <li><h5>Linz in a Balloon</h5><a href="public/P1020610.JPG"><img src="public/P1020610.JPG" alt="Linz in a Balloon"></a></li>
+                <li style="background-color: #333;color:white;"><h2>Iceland 2020</h2></li>                       
+                <li><h5>Horse</h5><a href="public/P1040033.JPG"><img src="public/P1040033.JPG" alt="SFO skyline"></a></li>
+                <li><h5>Waterfall 1</h5><a href="public/P1040042.JPG"><img src="public/P1040042.JPG" alt="Harvey Milk"></a></li>
+                <li><h5>Street sign</h5><a href="public/P1040063.JPG"><img src="public/P1040063.JPG" alt="Santa Barbara"></a></li>
+                <li><h5>Landscape</h5><a href="public/P1040101.JPG"><img src="public/P1040101.JPG" alt="Malibu"></a></li>
+                <li><h5>Waterfall 2</h5><a href="public/P1040169.JPG"><img src="public/P1040169.JPG" alt="Surfing"></a></li>
+                <li><h5>Waterfall 3</h5><a href="public/P1040219.JPG"><img src="public/P1040219.JPG" alt="Las Vegas"></a></li>
+                <li><h5>Rainbow</h5><a href="public/P1040222.JPG"><img src="public/P1040222.JPG" alt="Las Vegas 2"></a></li>  
+                <li style="background-color: #333;color:white;"><h2>Norway 2024</h2></li>                       
+                <li><h5>Trollfjord</h5><a href="public/1000005402-01.JPG"><img src="public/1000005402-01.JPG" alt="Trollfjord"></a></li>
+                <li><h5>Beach 1</h5><a href="public/IMG_20240729_110804.JPG"><img src="public/IMG_20240729_110804.JPG" alt="Beach 1"></a></li>
+                <li><h5>Beach 2</h5><a href="public/IMG_20240802_121439.JPG"><img src="public/IMG_20240802_121439.JPG" alt="Beach 2"></a></li>
+                <li><h5>Beach 3</h5><a href="public/IMG_20240804_093540.JPG"><img src="public/IMG_20240804_093540.JPG" alt="Beach 3"></a></li>
+            </ol>
+        </div>
+        <div id="id2">
+            <h1>Coding</h1>
+            <h3>Python / JavaScript</h3>
+            <ul>
+                <li><a href="https://github.com/erhard3mem/blockchainvote2">Blockchain Government: An open platform using Blockchain to support votings</a></li>
+                <li><a href="https://github.com/erhard3mem/sinusmonome">Monome Sinus: Drawing a sinus wave on a Monome Grid</a></li>
+                <li><a href="https://github.com/erhard3mem/snake-monome">Monome Snake: Playing the famous snake game on a Monome Grid</a></li>
+                <li><a href="https://github.com/erhard3mem/djone">DJone: selecting resp. ordering your favourite tracks by using Cosine Similarity on the lyrics</a></li>
             </ul>
-            <div id="content">                
-                <div id="id1">
-                    <h1>Photography</h1>
-                    <ol id="photos">
-                        <li><h2>California 2018</h2></li>                       
-                        <li><h5>Pier 39</h5><a href="public/P1020068.JPG"><img src="public/P1020068.JPG" alt="Pier 39 animals"></a></li>
-                        <li><h5>San Francisco</h5><a href="public/P1020137.JPG"><img src="public/P1020137.JPG" alt="SFO skyline"></a></li>
-                        <li><h5>Harvey Milk</h5><a href="public/P1020128.JPG"><img src="public/P1020128.JPG" alt="Harvey Milk"></a></li>
-                        <li><h5>Santa Barbara</h5><a href="public/P1020180.JPG"><img src="public/P1020180.JPG" alt="Santa Barbara"></a></li>
-                        <li><h5>Malibu</h5><a href="public/P1020197.JPG"><img src="public/P1020197.JPG" alt="Malibu"></a></li>
-                        <li><h5>Surfing</h5><a href="public/P1020215.JPG"><img src="public/P1020215.JPG" alt="Surfing"></a></li>
-                        <li><h5>Las Vegas</h5><a href="public/P1020278.JPG"><img src="public/P1020278.JPG" alt="Las Vegas"></a></li>
-                        <li><h5>Las Vegas</h5><a href="public/P1020292.JPG"><img src="public/P1020292.JPG" alt="Las Vegas 2"></a></li>
-                        <li><h5>Gran Canyon</h5><a href="public/P1020320.JPG"><img src="public/P1020320.JPG" alt="Gran Canyon"></a></li>
-                        <li><h5>Death Valley</h5><a href="public/P1020375.JPG"><img src="public/P1020375.JPG" alt="Death Valley"></a></li>
-                        <li><h5>Golden Gate Bridge</h5><a href="public/P1020423.JPG"><img src="public/P1020423.JPG" alt="GGB"></a></li>
-                        <li><h5>Sequoia</h5><a href="public/P1020468.JPG"><img src="public/P1020468.JPG" alt="Sequoia"></a></li>
-                        <li><h5>The sea</h5><a href="public/P1020501.JPG"><img src="public/P1020501.JPG" alt="The sea"></a></li>
-                        <li><h5>Fun park</h5><a href="public/P1020505.JPG"><img src="public/P1020505.JPG" alt="Fun park"></a></li>
-                        <li><h2>Others 2018</h2></li>                       
-                        <li><h5>Linz in a Balloon</h5><a href="public/P1020610.JPG"><img src="public/P1020610.JPG" alt="Linz in a Balloon"></a></li>
-                        <li><h2>Iceland 2020</h2></li>                       
-                        <li><h5>Horse</h5><a href="public/P1040033.JPG"><img src="public/P1040033.JPG" alt="SFO skyline"></a></li>
-                        <li><h5>Waterfall 1</h5><a href="public/P1040042.JPG"><img src="public/P1040042.JPG" alt="Harvey Milk"></a></li>
-                        <li><h5>Street sign</h5><a href="public/P1040063.JPG"><img src="public/P1040063.JPG" alt="Santa Barbara"></a></li>
-                        <li><h5>Landscape</h5><a href="public/P1040101.JPG"><img src="public/P1040101.JPG" alt="Malibu"></a></li>
-                        <li><h5>Waterfall 2</h5><a href="public/P1040169.JPG"><img src="public/P1040169.JPG" alt="Surfing"></a></li>
-                        <li><h5>Waterfall 3</h5><a href="public/P1040219.JPG"><img src="public/P1040219.JPG" alt="Las Vegas"></a></li>
-                        <li><h5>Rainbow</h5><a href="public/P1040222.JPG"><img src="public/P1040222.JPG" alt="Las Vegas 2"></a></li>  
-                        <li><h2>Norway 2024</h2></li>                       
-                        <li><h5>Trollfjord</h5><a href="public/1000005402-01.JPG"><img src="public/1000005402-01.JPG" alt="Trollfjord"></a></li>
-                        <li><h5>Beach 1</h5><a href="public/IMG_20240729_110804.JPG"><img src="public/IMG_20240729_110804.JPG" alt="Beach 1"></a></li>
-                        <li><h5>Beach 2</h5><a href="public/IMG_20240802_121439.JPG"><img src="public/IMG_20240802_121439.JPG" alt="Beach 2"></a></li>
-                        <li><h5>Beach 3</h5><a href="public/IMG_20240804_093540.JPG"><img src="public/IMG_20240804_093540.JPG" alt="Beach 3"></a></li>
-                    </ol>
-                </div>
-                <div id="id2">
-                    <h1>Coding</h1>
-                    <h3>Python / JavaScript</h3>
-                    <ul>
-                        <li><a href="https://github.com/erhard3mem/blockchainvote2">Blockchain Government: An open platform using Blockchain to support votings</a></li>
-                        <li><a href="https://github.com/erhard3mem/sinusmonome">Monome Sinus: Drawing a sinus wave on a Monome Grid</a></li>
-                        <li><a href="https://github.com/erhard3mem/snake-monome">Monome Snake: Playing the famous snake game on a Monome Grid</a></li>
-                        <li><a href="https://github.com/erhard3mem/djone">DJone: selecting resp. ordering your favourite tracks by using Cosine Similarity on the lyrics</a></li>
-                    </ul>
-                </div>
-                <div id="id3">
-                    <h1>Writing</h1>
-                    <h3>Pseudo Science</h3>
-                    <ol>
-                        <li>
-                            <h5>Text about the big bang</h5>
-                            <div id="text1">
-                                A sedimentary approach to the origin of life — the Big Bang — allows us mathematical and novel interpretations that extend to the theory of reincarnation. Before the Big Bang there was nothing, a state that is reflected by the mathematical number 0. There were no dimensions. Only through the Big Bang did the forces become possible that can be symbolically equated with the highest system good, information. Atoms and consequently molecules are a representative order (or disorder) of these primal forces. Light also did not exist before the Big Bang and was created in the process of the universe coming into being. Through the lens of autopoiesis, DNA is created through the high-quality and repetitive arrangement of complex molecules — in abstract terms, this means that initially ordered information creates more complex and disordered or chaotic information. It is only through DNA that life as we know it becomes possible, plants emerge that feed mainly on light and water. In addition, animals emerge that feed on other animals and plants. Later in history, humans evolved, who also fed on animals and plants and, in special cases, were cannibals. He develops a social order. Man discovers fire for himself. The power of the Big Bang — objective information — creates itself and becomes increasingly complex until the human system has reached a state of self-creation that enables the use of a higher power, fire. Different perspectives such as energetic transformation and dynamic cycles allow us to understand fire as analogous to a “mini big bang”. Through “waves of human imitation”, a “building of technological singularity” continues to grow and enables us to discover ourselves. These waves of imitation characterize evolutionary significant IQ leaps. Without these, evolution as we know it would not have been possible and it can be said that each stage of evolution is representative of a preliminary stage of the technological singularity. Humans invent language and writing, and an even more complex information system emerges. Man invents religions, paper and books. Later, electricity, which has already been used in nature due to evolution, e.g. on a neuronal level, is also used by humans — we imitate our creator, nature. A new preliminary stage of the technological singularity emerges. Photography is invented. The car is invented. Later, computers are built. Man imitates nature. Man — a genetic life form — decodes his own genome. The invention of artificial intelligence is currently the highest preliminary stage of the technological singularity and its effect on evolution is comparable to the discovery of fire. Artificial intelligence is a supposed counter-imitation of nature — called ‘general artificial intelligence’ — from the point of surpassing normal intelligence for the first time. Since the technology is free and open, a system is needed to make it marketable: Fear or anxiety. Scientists are stirring up fear of this very same weighty (counter)imitation of natureand warn that general artificial intelligence could be the end of the human race. However, it is all too easy to forget that it is still the same people who are developing artificial intelligence who have harnessed the fire. It should be noted that it is a purely capitalist- monetary dynamic that makes fear of one’s own progress marketable. The entire idea of a “Counter-imitation of nature” is purely theoretical. Buddhism — an Asian religion — developed about 2500 years ago and about 297,500 years after the emergence of our species. Karma is an analogous representation of the interaction of cause and effect of one system with another system. In Buddhism, karma is used to explain a way of reaching a zero state, nirvana — back before the big bang with the mind and body, so to speak. This state represents a harmonious order in the system between negative and positive karma, which can also be called freedom from suffering. Through meditation, an attempt is made to make the objects of emotion appear void and thus to disconnect the emotion in order to achieve a greater primordial state. The boundary between life and death is logically the conclusion that can be drawn from the sum of all technological singularities. Karma is a human ordering force that arises through interaction with the environment and can be seen as a framework for reincarnation. If there is an imbalance between negative and positive karma, the deceased person reincarnates in an orderly fashion in the disorder he or she has created. In order to connect the concept of karma with the theory of the Big Bang and its subsequent theories, we must visualize how man tries to escape the order that previous technical singularities enforce through conscious disorder in life. Ultimately, in order to interpret the fear theory of absolute human evolution in a useful and Buddhist way, every counter-imitation of nature creates negative karma and every imitation of nature creates positive karma. It must not be forgotten that it is a Western interpretation, for the sake of which we must detach the emotional component from the subject of artificial intelligence, that the step towards a general artificial intelligence is a necessary one from an evolutionary point of view, which we have already prepared analogously with other and older technologies and inventions. To finish these considerations and to say that man is a particle of a gigantic mathematical and abstract computer, we can say that man already has 2500 years of karma interaction behind him and 297,500 years to go until he reaches an objective nirvana. In the evolutionary context, man has already completed a very long learning phase and yet has only reached 0.83% on the mathematical-Buddhist scale, which can be measured anew through the development of the idea of Buddhism — namely karma and nirvana. This system of ideas offers a much greater scope: to date, it is the primal forces that dynamically shape our reality and which we have begun to imitate without generally breaking them. The metaphorical suspension of any designed metric allows us to see the human being as the beginning and end of any information connection woven through dynamics: Our brains use electricity and chemistry to (evolutionarily) map reality, while simultaneous corollaries of this interactional process are the definition of mathematics and the implicitattempt to explode this dynamic space. The question is whether and how an interaction of the metaphysical level of an idea with the mathematical space behind the idea manifests itself in a hidden dimension with reality. It could be stated that the causal future is nothing other than an ideationally constructed echo chamber. An example of a successful imitation of nature is the development of stealth bombers that are invisible to the “eyes” of radar systems: The chameleon uses a technique of camouflage to make itself invisible to potential prey attacks. As much negativity may be attributed to our time, the year 2024, in reality the rose-tinted glasses behind it, which anyone could put on, are all the greater. People are currently facing the hurdle of allowing themselves to be subjugated by the positive effects of generative artificial intelligence and not finding themselves trapped in a metaphysical fictional department store of language due to misguided social developments and cultural discrepancies that express themselves in wokeness, for example. In many places, it is no longer about objectivity but about the objectification of a dysfunctional subjectivity. On the other hand, the wokeness system, for example, opens up a learning space that we would perhaps not reach without it: to orient ourselves towards the essentials in human language in order to avoid becoming algorithms ourselves. Algorithms are program structures that have a structural momentum of their own and which, if we take a closer look, also harbour greater danger than simple, less dynamic program structures, as they have a certain potential for error. However, this is not intended to stir up fear of algorithms, as has already been discussed several times. On the contrary, the current state of technology invites us to think progressively about how we can break up existing structures that have become encrusted over decades and centuries, for example in politics, and reduce bureaucracy in order to save our climate. At a time when people spend an average of 8 hours a week online on their smartphones, but nowadays 20 hours, one could easily conclude that a systemic plutocracy based on big data analysis and algorithms has taken over in many places and, due to its nature, has no interest in saving the climate — simply arguing that insurance companies can also do business from accidents. Many companies have no interest in doing something good in return for their economic performance. It would be an interesting idea to actually democratically embed internet monopolies, whose business model is based on the evaluation, analysis and extraction of our democratically hoarded data, and thus dispense with the toxic side effects of a purely market-based economy. This would be possible, for example, with technologies such as blockchain, where the resources for a decision-making unit become more and more expensive for the system over time in relation to the power imbalance gained. This would have many positive side effects such as transparency and sustainability. If one were to link this idea with the idea or decision-making power of general artificial intelligence, one could say that the artificial intelligence itself must vote on whether it is worth “mining” a new decision or whether it should stay beyond that. The following describes a “state model of machines” in which we humans are not the Morlocks, but the Eloi, to use the words of science fiction author H.G. Wells. In the not-too-distant future, a machine would have a hoard for which it makes decisions based on its previous model of experience in coordination with all other machines. A machine can spend as much energy on this as all other machines release for the same decision. Due to this system, a balance is maintained and human potentials such as peace and prosperity are mined by the machines. Put simply, one could say that the symbiosis between humans and machines is based on the fact that the machines have to share a fictitious currency with humans in order to be able to pursue their own or collectively altruistic goals. Example: A computer program has all the available data from the last financial year and can make a forecast of which decisions are necessary in order to operate as sustainably as possible. This program is linked to a democratic blockchain-based decision-making model. The maximum decision-making power of the program is limited by system definition. The greater the decision-making horizon or responsibility, the stronger the competition with another decision. A free decision is mined in transaction form. In this utopia, machines have to work for their karma or make better decisions for the collective of Eloi in order to reduce previous negative karma.
-                            </div>                            
-                        </li>
-                        <li> <h5>Text about Evolution (german)</h5>
-                            <div id="text2">
-                                Am Anfang allen Lebens waren es die Urkräfte, die nach langer Zeit der großen Stille einen riesengroßen Streit über das Leben austragen versuchten, der schließlich in einer gigantischen Explosion, dem Urknall, endete. Der Anfang einer langen Zeit konstanter und friedlicher Entwicklung. Die versöhnten Kräfte waren sich nicht immer einig, doch fand man schnell Konsens. Zu Anfangs gab es keine Dimensionen, doch einigte man sich schnell auf 4-Dimensionen, die drei Raumdimensionen und eine vierte — die Zeitdimension. Was in der Raumzeit alles möglich wurde, zeigt die Entstehung von Licht, das ca. 380.000 Jahre nach dem Urknall möglich wurde. Zur gleichen Zeit entstanden die ersten Atome und Moleküle. Man war sich uneinig über einen perfekten Ort um das Experiment des Lebens durchzuführen. Schließlich, nachdem man das Experiment andernorts bereits milliardenfach wiederholte, hat man sich für den Plant Erde in der Milchstraße entschieden. Natürlich war der Planet anfänglich sehr wütend und verärgert über sein Erwachen aus seinem langen Schlaf. Und so war er sehr heiß, bis er abkühlte und Ozeane entstanden. Erst das komplexe Zusammenspiel von Gravitation, Molekülen und Licht, das insgesamt ca. 9,5 Milliarden Jahre andauerte, erzeugte hochkomplexe Moleküle wie die DNA, welche die Erbinformation einer Lebensform kodiert und sich in allen Lebensformen selbst vervielfältigen kann. Tatsächlich sind in unserer Milchstraße bereits 72% Lebenszeit verstrichen, als die Kräfte auf der Erde das erste Mal DNA hervorbrachten. Die Kräfte waren sich auch einig darüber, Mineralien zu erzeugen, die wiederum die nächsten Stufen der Evolution ermöglichten. Die erste Lebensform waren die Prokaryoten, sie besiedelten Orte der Extreme wie heiße Quellen oder salzhaltige Seen. Es kam zur Sauerstoffkatastrophe, denn für viele Lebensformen war Sauerstoff zu dieser Zeit giftig. Noch bevor Pflanzen entstanden, entwickelten sich Pilze und Algen, die wichtige Nährstoffe für den Boden produzierten und freisetzten. Dann — erst vor 500 Millionen Jahren — entstanden die ersten Pflanzen. Diese einfachen und doch komplexen Organismen nutzen die Photosynthese um aus Licht, Kohlendioxid und Wasser, Sauerstoff zu produzieren. Die ersten Tiere waren vermutlich Wassergeschöpfe wie Quallen. Es entstand das Rückgrat, Fische entwickelten sich. Ein wichtiger Faktor für erfolgreiche Fortpflanzungssysteme ist Bewegung. Landtiere entwickelten sich, bildeten Skelette aus und verschiedene Kreislaufsysteme wie das Atmungssystem oder der Blutkreislauf entstanden. Der erste moderne Mensch war der Homo Sapiens und entstand ca. 14 Milliarden Jahre nach dem Urknall. Davor war es der Homo Erectus, der zB die Nutzung des Feuer für sich erfand — wichtiges Erkennungsmerkmal ist der freie Wille des Menschen: Dieser ermöglichte es, vom Dasein als Jäger und Sammler viele Schritte der Evolutionsgeschichte alleine zu gehen — denn vor ca. 10.000 Jahren begann man mit der landwirtschaftlichen Revolution: Die menschliche Bevölkerung wuchs, aber war zugleich vor negative Auswirkungen gestellt und die Lebenserwartung nahm ab. Die gesamte Evolutionsgeschichte des Menschen lässt sich durch eine Sinuswelle der Intelligenz betrachten, deren Messwert einem steten auf und ab oszilliert. Schließlich sind es hypothetisch noch immer die selben Mechanismen, die in uns aktiv sind, wenn wir einen Orgasmus erleben, wie es in Einzellern passiert, wenn sie ihre Zellteilung vollziehen. Die Nutzbarmachung von Feuer durch Frühmenschen ist ein weiteres symbolisches Echo eines Intelligenzhochs, und man könnte ihn durch die Lupe der menschlichen Evolution als „Mini-Urknall“ sehen. Bis heute hat der Mensch viele IQ-Sprünge erlebt, und erste Vorstufen der technologischen Singularität erreicht. Die technologische Singularität ist ein hypothetisches Zukunftsereignis bei dem Maschinen die menschliche Intelligenz überholen und so ein uns bekanntes Fortbestehen des Menschen unterbinden. Irrwitzigerweise entwickelt der Mensch Religionen, erfindet das Papier und Bücher. Später wird Elektrizität, die in der Natur evolutionsbedingt bereits genutzt wurde, zB auf neuronaler Ebene, auch durch den Menschen genutzt — wir imitieren unseren Schöpfer, die Natur. Eine neue Vorstufe der technologischen Singularität entsteht.
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-                <div id="id4">
-                    <h1>Browsing the web...</h1>
-                    <p>about arts, science and technology</p>
-                    <ul>
-                        <li><a href="https://www.derstandard.at/story/3000000219378/pottwale-nutzen-ein-komplexes-sprachliches-alphabet">Pottwale nutzen ein komplexes sprachliches Alphabet - Natur - derStandard.at › Wissenschaft</a></li>
-                        <li><a href="https://www.telepolis.de/features/Akio-Toyoda-Elektroautos-werden-den-Markt-nie-dominieren-9609829.html">Akio Toyoda: "Elektroautos werden den Markt nie dominieren" | Telepolis</a></li>
-                        <li><a href="https://www.numberphile.com/videos/244432188000-games-of-catan">244,432,188,000 games of Catan — Numberphile</a></li>
-                        <li><a href="https://techwewant.com/how-efoils-work-electric-surfboard-explained-777c65e8acbe">How eFoils Work — Electric Flying Surfboard Explained! | by Tech We Want | Tech We Want</a></li>
-                        <li><a href="https://www.urlaubspiraten.de/reise-journal/panamericana">Panamericana 🛣️ - die längste befahrbare Strecke der Welt 🚐</a></li>
-                        <li><a href="https://www.ted.com/talks/ian_bremmer_the_next_global_superpower_isn_t_who_you_think">The next global superpower isn't who you think</a></li>
-                        <li><a href="https://www.ted.com/talks/jennifer_golbeck_is_ai_progress_stuck">Is AI progress stuck?</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=mqzyKs2Qvug">Karl Friston: How Does Death Shape Life? - YouTube</a></li>
-                        <li><a href="https://dgerrells.com/blog/how-fast-is-javascript-simulating-20-000-000-particles">how fast is javascript simulating 20 000 000 particles</a></li>
-                        <li><a href="https://www.himalayanyogainstitute.com/what-is-so-sacred-about-the-number-108/">What Is So Sacred About The Number 108?</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=lyu7v7nWzfo">Your brain hallucinates your conscious reality | Anil Seth - YouTube</a></li>
-                        <li><a href="https://www.picokeys.com/pico-hsm/">Pico HSM - Hardware Security Module</a></li>
-                        <li><a href="https://pop.system76.com/">Pop!_OS by System76</a></li>
-                        <li><a href="https://kagi.com/">Kagi Search</a></li>
-                        <li><a href="https://x.com/BrianRoemmele/status/1860046719637209211">Brian Roemmele auf X: „How does a 1000 random folks spend their time in a day? https://t.co/d8ALPQqn5s“ / X</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=2EUIq72Jxvo">A polar sundial</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=RDv42L8-soA&pp=ygUdcHJlc2lkZW50IG9mIGd1eWFuYSBpbnRlcnZpZXc%3D">Guyana president blasts journalist when discussing country’s oil reserves</a></li>
-                        <li><a href="https://de.wikipedia.org/wiki/%C3%9Cberwachungskapitalismus">Überwachungskapitalismus Wikipedia</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=-aBld-WH30o">Homo cyber. Ein Bericht aus Digitalien von Peter Reichl</a></li>
-                        <li><a href="https://www.nature.com/articles/s41562-024-02046-9">Large language models surpass human experts in predicting neuroscience results</a></li>
-                        <li><a href="https://www.bbc.com/news/articles/c748kmvwyv9o">Monkeys will never type Shakespeare, study finds</a></li>
-                        <li><a href="https://nautil.us/your-cat-is-listening-to-you-1045745/">Your Cat Is Listening to You</a></li>
-                        <li><a href="https://artsandculture.google.com/experiment/TAEPZtXK2s139g">Leo Davinci Online Museum</a></li>
-                        <li><a href="https://www.hup.harvard.edu/books/9780674273559">Favourite read about a fair economy</a></li>
-                        <li><a href="https://science.slashdot.org/story/24/10/25/2351234/former-nvidia-engineer-discovers-41-million-digit-prime">Former Nvidia Engineer Discovers 41-Million-Digit Prime</a></li>
-                        <li><a href="https://www.scworld.com/news/llm-attacks-take-just-42-seconds-on-average-20-of-jailbreaks-succeed">LLM attacks take just 42 seconds on average, 20% of jailbreaks succeed</a></li>
-                        <li><a href="https://www.instagram.com/hamidnaderiyeganeh/">Math equation art by hamidnaderiyeganeh</a></li>
-                        <li><a href="https://www.youtube.com/@ZDFbesseresser">ZDFbesseresser</a></li>
-                    </ul>
-                </div>
+        </div>
+        <div id="id3" style="max-width: 600px;padding-right:40px">
+            <h1>Writing</h1>
+            <h3>Pseudo Science</h3>
+            <h5>Text about the big bang</h5>
+            <div id="text1">
+                A sedimentary approach to the origin of life — the Big Bang — allows us mathematical and novel interpretations that extend to the theory of reincarnation. Before the Big Bang there was nothing, a state that is reflected by the mathematical number 0. There were no dimensions. Only through the Big Bang did the forces become possible that can be symbolically equated with the highest system good, information. Atoms and consequently molecules are a representative order (or disorder) of these primal forces. Light also did not exist before the Big Bang and was created in the process of the universe coming into being. Through the lens of autopoiesis, DNA is created through the high-quality and repetitive arrangement of complex molecules — in abstract terms, this means that initially ordered information creates more complex and disordered or chaotic information. It is only through DNA that life as we know it becomes possible, plants emerge that feed mainly on light and water. In addition, animals emerge that feed on other animals and plants. Later in history, humans evolved, who also fed on animals and plants and, in special cases, were cannibals. He develops a social order. Man discovers fire for himself. The power of the Big Bang — objective information — creates itself and becomes increasingly complex until the human system has reached a state of self-creation that enables the use of a higher power, fire. Different perspectives such as energetic transformation and dynamic cycles allow us to understand fire as analogous to a “mini big bang”. Through “waves of human imitation”, a “building of technological singularity” continues to grow and enables us to discover ourselves. These waves of imitation characterize evolutionary significant IQ leaps. Without these, evolution as we know it would not have been possible and it can be said that each stage of evolution is representative of a preliminary stage of the technological singularity. Humans invent language and writing, and an even more complex information system emerges. Man invents religions, paper and books. Later, electricity, which has already been used in nature due to evolution, e.g. on a neuronal level, is also used by humans — we imitate our creator, nature. A new preliminary stage of the technological singularity emerges. Photography is invented. The car is invented. Later, computers are built. Man imitates nature. Man — a genetic life form — decodes his own genome. The invention of artificial intelligence is currently the highest preliminary stage of the technological singularity and its effect on evolution is comparable to the discovery of fire. Artificial intelligence is a supposed counter-imitation of nature — called ‘general artificial intelligence’ — from the point of surpassing normal intelligence for the first time. Since the technology is free and open, a system is needed to make it marketable: Fear or anxiety. Scientists are stirring up fear of this very same weighty (counter)imitation of natureand warn that general artificial intelligence could be the end of the human race. However, it is all too easy to forget that it is still the same people who are developing artificial intelligence who have harnessed the fire. It should be noted that it is a purely capitalist- monetary dynamic that makes fear of one’s own progress marketable. The entire idea of a “Counter-imitation of nature” is purely theoretical. Buddhism — an Asian religion — developed about 2500 years ago and about 297,500 years after the emergence of our species. Karma is an analogous representation of the interaction of cause and effect of one system with another system. In Buddhism, karma is used to explain a way of reaching a zero state, nirvana — back before the big bang with the mind and body, so to speak. This state represents a harmonious order in the system between negative and positive karma, which can also be called freedom from suffering. Through meditation, an attempt is made to make the objects of emotion appear void and thus to disconnect the emotion in order to achieve a greater primordial state. The boundary between life and death is logically the conclusion that can be drawn from the sum of all technological singularities. Karma is a human ordering force that arises through interaction with the environment and can be seen as a framework for reincarnation. If there is an imbalance between negative and positive karma, the deceased person reincarnates in an orderly fashion in the disorder he or she has created. In order to connect the concept of karma with the theory of the Big Bang and its subsequent theories, we must visualize how man tries to escape the order that previous technical singularities enforce through conscious disorder in life. Ultimately, in order to interpret the fear theory of absolute human evolution in a useful and Buddhist way, every counter-imitation of nature creates negative karma and every imitation of nature creates positive karma. It must not be forgotten that it is a Western interpretation, for the sake of which we must detach the emotional component from the subject of artificial intelligence, that the step towards a general artificial intelligence is a necessary one from an evolutionary point of view, which we have already prepared analogously with other and older technologies and inventions. To finish these considerations and to say that man is a particle of a gigantic mathematical and abstract computer, we can say that man already has 2500 years of karma interaction behind him and 297,500 years to go until he reaches an objective nirvana. In the evolutionary context, man has already completed a very long learning phase and yet has only reached 0.83% on the mathematical-Buddhist scale, which can be measured anew through the development of the idea of Buddhism — namely karma and nirvana. This system of ideas offers a much greater scope: to date, it is the primal forces that dynamically shape our reality and which we have begun to imitate without generally breaking them. The metaphorical suspension of any designed metric allows us to see the human being as the beginning and end of any information connection woven through dynamics: Our brains use electricity and chemistry to (evolutionarily) map reality, while simultaneous corollaries of this interactional process are the definition of mathematics and the implicitattempt to explode this dynamic space. The question is whether and how an interaction of the metaphysical level of an idea with the mathematical space behind the idea manifests itself in a hidden dimension with reality. It could be stated that the causal future is nothing other than an ideationally constructed echo chamber. An example of a successful imitation of nature is the development of stealth bombers that are invisible to the “eyes” of radar systems: The chameleon uses a technique of camouflage to make itself invisible to potential prey attacks. As much negativity may be attributed to our time, the year 2024, in reality the rose-tinted glasses behind it, which anyone could put on, are all the greater. People are currently facing the hurdle of allowing themselves to be subjugated by the positive effects of generative artificial intelligence and not finding themselves trapped in a metaphysical fictional department store of language due to misguided social developments and cultural discrepancies that express themselves in wokeness, for example. In many places, it is no longer about objectivity but about the objectification of a dysfunctional subjectivity. On the other hand, the wokeness system, for example, opens up a learning space that we would perhaps not reach without it: to orient ourselves towards the essentials in human language in order to avoid becoming algorithms ourselves. Algorithms are program structures that have a structural momentum of their own and which, if we take a closer look, also harbour greater danger than simple, less dynamic program structures, as they have a certain potential for error. However, this is not intended to stir up fear of algorithms, as has already been discussed several times. On the contrary, the current state of technology invites us to think progressively about how we can break up existing structures that have become encrusted over decades and centuries, for example in politics, and reduce bureaucracy in order to save our climate. At a time when people spend an average of 8 hours a week online on their smartphones, but nowadays 20 hours, one could easily conclude that a systemic plutocracy based on big data analysis and algorithms has taken over in many places and, due to its nature, has no interest in saving the climate — simply arguing that insurance companies can also do business from accidents. Many companies have no interest in doing something good in return for their economic performance. It would be an interesting idea to actually democratically embed internet monopolies, whose business model is based on the evaluation, analysis and extraction of our democratically hoarded data, and thus dispense with the toxic side effects of a purely market-based economy. This would be possible, for example, with technologies such as blockchain, where the resources for a decision-making unit become more and more expensive for the system over time in relation to the power imbalance gained. This would have many positive side effects such as transparency and sustainability. If one were to link this idea with the idea or decision-making power of general artificial intelligence, one could say that the artificial intelligence itself must vote on whether it is worth “mining” a new decision or whether it should stay beyond that. The following describes a “state model of machines” in which we humans are not the Morlocks, but the Eloi, to use the words of science fiction author H.G. Wells. In the not-too-distant future, a machine would have a hoard for which it makes decisions based on its previous model of experience in coordination with all other machines. A machine can spend as much energy on this as all other machines release for the same decision. Due to this system, a balance is maintained and human potentials such as peace and prosperity are mined by the machines. Put simply, one could say that the symbiosis between humans and machines is based on the fact that the machines have to share a fictitious currency with humans in order to be able to pursue their own or collectively altruistic goals. Example: A computer program has all the available data from the last financial year and can make a forecast of which decisions are necessary in order to operate as sustainably as possible. This program is linked to a democratic blockchain-based decision-making model. The maximum decision-making power of the program is limited by system definition. The greater the decision-making horizon or responsibility, the stronger the competition with another decision. A free decision is mined in transaction form. In this utopia, machines have to work for their karma or make better decisions for the collective of Eloi in order to reduce previous negative karma.
+            </div>                            
+            <h5>Text about Evolution (german)</h5>
+            <div id="text2">
+                Am Anfang allen Lebens waren es die Urkräfte, die nach langer Zeit der großen Stille einen riesengroßen Streit über das Leben austragen versuchten, der schließlich in einer gigantischen Explosion, dem Urknall, endete. Der Anfang einer langen Zeit konstanter und friedlicher Entwicklung. Die versöhnten Kräfte waren sich nicht immer einig, doch fand man schnell Konsens. Zu Anfangs gab es keine Dimensionen, doch einigte man sich schnell auf 4-Dimensionen, die drei Raumdimensionen und eine vierte — die Zeitdimension. Was in der Raumzeit alles möglich wurde, zeigt die Entstehung von Licht, das ca. 380.000 Jahre nach dem Urknall möglich wurde. Zur gleichen Zeit entstanden die ersten Atome und Moleküle. Man war sich uneinig über einen perfekten Ort um das Experiment des Lebens durchzuführen. Schließlich, nachdem man das Experiment andernorts bereits milliardenfach wiederholte, hat man sich für den Plant Erde in der Milchstraße entschieden. Natürlich war der Planet anfänglich sehr wütend und verärgert über sein Erwachen aus seinem langen Schlaf. Und so war er sehr heiß, bis er abkühlte und Ozeane entstanden. Erst das komplexe Zusammenspiel von Gravitation, Molekülen und Licht, das insgesamt ca. 9,5 Milliarden Jahre andauerte, erzeugte hochkomplexe Moleküle wie die DNA, welche die Erbinformation einer Lebensform kodiert und sich in allen Lebensformen selbst vervielfältigen kann. Tatsächlich sind in unserer Milchstraße bereits 72% Lebenszeit verstrichen, als die Kräfte auf der Erde das erste Mal DNA hervorbrachten. Die Kräfte waren sich auch einig darüber, Mineralien zu erzeugen, die wiederum die nächsten Stufen der Evolution ermöglichten. Die erste Lebensform waren die Prokaryoten, sie besiedelten Orte der Extreme wie heiße Quellen oder salzhaltige Seen. Es kam zur Sauerstoffkatastrophe, denn für viele Lebensformen war Sauerstoff zu dieser Zeit giftig. Noch bevor Pflanzen entstanden, entwickelten sich Pilze und Algen, die wichtige Nährstoffe für den Boden produzierten und freisetzten. Dann — erst vor 500 Millionen Jahren — entstanden die ersten Pflanzen. Diese einfachen und doch komplexen Organismen nutzen die Photosynthese um aus Licht, Kohlendioxid und Wasser, Sauerstoff zu produzieren. Die ersten Tiere waren vermutlich Wassergeschöpfe wie Quallen. Es entstand das Rückgrat, Fische entwickelten sich. Ein wichtiger Faktor für erfolgreiche Fortpflanzungssysteme ist Bewegung. Landtiere entwickelten sich, bildeten Skelette aus und verschiedene Kreislaufsysteme wie das Atmungssystem oder der Blutkreislauf entstanden. Der erste moderne Mensch war der Homo Sapiens und entstand ca. 14 Milliarden Jahre nach dem Urknall. Davor war es der Homo Erectus, der zB die Nutzung des Feuer für sich erfand — wichtiges Erkennungsmerkmal ist der freie Wille des Menschen: Dieser ermöglichte es, vom Dasein als Jäger und Sammler viele Schritte der Evolutionsgeschichte alleine zu gehen — denn vor ca. 10.000 Jahren begann man mit der landwirtschaftlichen Revolution: Die menschliche Bevölkerung wuchs, aber war zugleich vor negative Auswirkungen gestellt und die Lebenserwartung nahm ab. Die gesamte Evolutionsgeschichte des Menschen lässt sich durch eine Sinuswelle der Intelligenz betrachten, deren Messwert einem steten auf und ab oszilliert. Schließlich sind es hypothetisch noch immer die selben Mechanismen, die in uns aktiv sind, wenn wir einen Orgasmus erleben, wie es in Einzellern passiert, wenn sie ihre Zellteilung vollziehen. Die Nutzbarmachung von Feuer durch Frühmenschen ist ein weiteres symbolisches Echo eines Intelligenzhochs, und man könnte ihn durch die Lupe der menschlichen Evolution als „Mini-Urknall“ sehen. Bis heute hat der Mensch viele IQ-Sprünge erlebt, und erste Vorstufen der technologischen Singularität erreicht. Die technologische Singularität ist ein hypothetisches Zukunftsereignis bei dem Maschinen die menschliche Intelligenz überholen und so ein uns bekanntes Fortbestehen des Menschen unterbinden. Irrwitzigerweise entwickelt der Mensch Religionen, erfindet das Papier und Bücher. Später wird Elektrizität, die in der Natur evolutionsbedingt bereits genutzt wurde, zB auf neuronaler Ebene, auch durch den Menschen genutzt — wir imitieren unseren Schöpfer, die Natur. Eine neue Vorstufe der technologischen Singularität entsteht.
             </div>
+                
+        </div>
+        <div id="id4">
+            <h1>Browsing the web...</h1>
+            <p>about arts, science and technology</p>
+            <ul>
+                <!--<li><a href="https://www.derstandard.at/story/3000000219378/pottwale-nutzen-ein-komplexes-sprachliches-alphabet">Pottwale nutzen ein komplexes sprachliches Alphabet - Natur - derStandard.at › Wissenschaft</a></li>-->
+                <li><a href="https://www.telepolis.de/features/Akio-Toyoda-Elektroautos-werden-den-Markt-nie-dominieren-9609829.html">Akio Toyoda: "Elektroautos werden den Markt nie dominieren" | Telepolis</a></li>
+                <li><a href="https://www.numberphile.com/videos/244432188000-games-of-catan">244,432,188,000 games of Catan — Numberphile</a></li>
+                <!--<li><a href="https://techwewant.com/how-efoils-work-electric-surfboard-explained-777c65e8acbe">How eFoils Work — Electric Flying Surfboard Explained! | by Tech We Want | Tech We Want</a></li>
+                <li><a href="https://www.urlaubspiraten.de/reise-journal/panamericana">Panamericana 🛣️ - die längste befahrbare Strecke der Welt 🚐</a></li>-->
+                <li><a href="https://www.ted.com/talks/ian_bremmer_the_next_global_superpower_isn_t_who_you_think">The next global superpower isn't who you think</a></li>
+                <li><a href="https://www.ted.com/talks/jennifer_golbeck_is_ai_progress_stuck">Is AI progress stuck?</a></li>
+                <li><a href="https://www.youtube.com/watch?v=mqzyKs2Qvug">Karl Friston: How Does Death Shape Life? - YouTube</a></li>
+                <li><a href="https://dgerrells.com/blog/how-fast-is-javascript-simulating-20-000-000-particles">how fast is javascript simulating 20 000 000 particles</a></li>
+                <li><a href="https://www.himalayanyogainstitute.com/what-is-so-sacred-about-the-number-108/">What Is So Sacred About The Number 108?</a></li>
+                <li><a href="https://www.youtube.com/watch?v=lyu7v7nWzfo">Your brain hallucinates your conscious reality | Anil Seth - YouTube</a></li>
+                <li><a href="https://www.picokeys.com/pico-hsm/">Pico HSM - Hardware Security Module</a></li>
+                <!--<li><a href="https://pop.system76.com/">Pop!_OS by System76</a></li>-->
+                <li><a href="https://kagi.com/">Kagi Search</a></li>
+                <li><a href="https://x.com/BrianRoemmele/status/1860046719637209211">Brian Roemmele auf X: „How does a 1000 random folks spend their time in a day? https://t.co/d8ALPQqn5s“ / X</a></li>
+                <!--<li><a href="https://www.youtube.com/watch?v=2EUIq72Jxvo">A polar sundial</a></li>-->
+                <li><a href="https://www.youtube.com/watch?v=RDv42L8-soA&pp=ygUdcHJlc2lkZW50IG9mIGd1eWFuYSBpbnRlcnZpZXc%3D">Guyana president blasts journalist when discussing country’s oil reserves</a></li>
+                <li><a href="https://de.wikipedia.org/wiki/%C3%9Cberwachungskapitalismus">Überwachungskapitalismus Wikipedia</a></li>
+                <!--<li><a href="https://www.youtube.com/watch?v=-aBld-WH30o">Homo cyber. Ein Bericht aus Digitalien von Peter Reichl</a></li>-->
+                <li><a href="https://www.nature.com/articles/s41562-024-02046-9">Large language models surpass human experts in predicting neuroscience results</a></li>
+                <li><a href="https://www.bbc.com/news/articles/c748kmvwyv9o">Monkeys will never type Shakespeare, study finds</a></li>
+                <li><a href="https://nautil.us/your-cat-is-listening-to-you-1045745/">Your Cat Is Listening to You</a></li>
+                <li><a href="https://artsandculture.google.com/experiment/TAEPZtXK2s139g">Leo Davinci Online Museum</a></li>
+                <!--<li><a href="https://www.hup.harvard.edu/books/9780674273559">Favourite read about a fair economy</a></li>-->
+                <!--<li><a href="https://science.slashdot.org/story/24/10/25/2351234/former-nvidia-engineer-discovers-41-million-digit-prime">Former Nvidia Engineer Discovers 41-Million-Digit Prime</a></li>-->
+                <li><a href="https://www.scworld.com/news/llm-attacks-take-just-42-seconds-on-average-20-of-jailbreaks-succeed">LLM attacks take just 42 seconds on average, 20% of jailbreaks succeed</a></li>
+                <li><a href="https://www.instagram.com/hamidnaderiyeganeh/">Math equation art by hamidnaderiyeganeh</a></li>
+                <li><a href="https://www.youtube.com/@ZDFbesseresser">ZDFbesseresser</a></li>
+            </ul>
         </div>
     </div>
 
@@ -233,24 +273,21 @@
             $("#content div").hide()            
             $("#contentList li").show()
             const sel = $(this).attr('id')
-            $("#contentList li").eq(sel-1).hide()            
+            //$("#contentList li").eq(sel-1).hide()            
+            $("#contentList li").css("background-color","#e8e8e8")
+            $("#contentList li").eq(sel-1).css("background-color","yellow")
             $("#content div#id"+sel).show()            
             $("#content div#id"+sel+" div").show()  
+            
         } );
         $('#photos img').hover(
             function() {
                 // When mouse enters, resize the image
-                $(this).css({
-                    width: '60%',
-                    height: '60%'
-                });
+              //  $(this).toggleClass("img-hover")
             },
             function() {
                 // When mouse leaves, restore the original size
-                $(this).css({
-                    width: '',  // Reset to default width
-                    height: ''  // Reset to default height
-                });
+               // $(this).removeClass("img-hover")
             }
         );
     </script>
