@@ -42,10 +42,8 @@
   .c a {
     color:white;
     font-family: "Roboto Mono";
-    padding:3px;
   }
   .c a:hover {
-    padding:3px;
     background-color: antiquewhite;
     color:black;
   }
