@@ -192,6 +192,12 @@
   .c3 {
     background-color: darkslateblue;
   }
+  .c4 {
+    background-color: darkgoldenrod;
+  }
+  .c5 {
+    background-color: darkred;
+  }
   .c3 a, .c5 a {
     font-size:12px;
     color:white;
