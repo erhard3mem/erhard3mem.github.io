@@ -66,7 +66,7 @@
     box-shadow: 0 15px 30px 0 rgba(31, 38, 135, 0.5);
   }
 
-  .cc ul {
+  .c1 .cc ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -74,10 +74,14 @@
     flex-wrap: wrap;
   }
 
-  .cc ul li {
+  .c1 .cc ul li {
     margin-top: 20px;
     margin-right:20px;
     width: 100px;
+  }
+
+  .c4 li {
+    margin-top:15px;
   }
 
   .c2 a {
