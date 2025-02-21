@@ -14,6 +14,18 @@
     <meta name="google-site-verification" content="EvzlEGmvEbmbQ7XlpWMCTkv9j-Z7qqSFb50N54PYNBc" />
 </head>
 <body>
+    <a href="#" onclick="changeStylesheet(); return false;">Change Stylesheet</a>
+
+    <script>
+        const stylesheets = ["style.css", "style_1.css", "style_2.css", "style_3.css"];
+        let currentIndex = 0;
+        
+        function changeStylesheet() {
+            currentIndex = (currentIndex + 1) % stylesheets.length;
+            document.getElementById("stylesheet").href = stylesheets[currentIndex];
+        }
+    </script>
+    
     <div class="wcc">
         <h1 class="welcome">(c) Erhard Einsiedler 2025</h1>
         <img class="selfie" src="./public/6_ich klettern.png">
