@@ -1,0 +1,128 @@
+/* General Styles */
+body {
+  font-family: 'Roboto Mono', monospace;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.wcc {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.welcome {
+  font-size: 12px;
+  margin: 0;
+  color:white;
+}
+
+.selfie {
+  max-width: 150px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+/* Content Sections */
+.c {
+  background-color: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+}
+
+h1 {
+  font-size: 22px;
+  border-bottom: 2px solid #0078D4;
+  padding-bottom: 5px;
+  color: #222;
+}
+
+/* Post Tags */
+.post-tags {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.post-tags li {
+  background-color: #0078D4;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.date {
+  background-color: #555;
+}
+
+/* Content Text */
+.cc {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* Image Styles */
+.cc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Links */
+a {
+  color: #0078D4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .c {
+      margin: 10px;
+      padding: 15px;
+  }
+}
+
+.c1 .cc ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.c1 .cc li {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 150px;
+    flex: 1 1 calc(20% - 40px);
+}
