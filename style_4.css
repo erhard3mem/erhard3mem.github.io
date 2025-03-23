@@ -26,7 +26,7 @@
   
   .welcome {
     font-size: 3.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem;  
     text-transform: uppercase;
     letter-spacing: 1px;
   }
@@ -90,7 +90,7 @@
   }
   
   .post-tags li {
-    background-color: #1a1a1a;
+    background-color: #e9e9e9;
     color: #ff3c00;
     padding: 0.3rem 0.8rem;
     margin-right: 0.5rem;
