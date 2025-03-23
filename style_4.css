@@ -220,3 +220,19 @@
   .c11 { --index: 10; }
   .c12 { --index: 11; }
   .c20 { --index: 12; }
+
+
+
+
+
+  .cc div[style*="padding-top:20px"] > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .cc div[style*="padding-top:20px"] > div > div {
+    text-align: center;
+  }
+  
