@@ -252,3 +252,13 @@
     text-align: center;
   }
   
+
+  .list {                
+    display: flex;  /* Use flexbox to arrange items in a line */
+    list-style-type: none;  /* Remove bullet points */
+    padding: 0;  /* Remove default padding */
+    gap: 10px;  /* Add some space between items */
+}
+.welcome {
+    display: inline-flex;
+}
