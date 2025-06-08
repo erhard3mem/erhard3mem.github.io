@@ -49,6 +49,7 @@
     width: 1300px;
     height: 700px;
     padding: 40px;
+    margin-left: unset;
   }
   
   a {
