@@ -22,34 +22,17 @@
     text-transform: uppercase;
     margin-bottom: 1rem;
     color: #ff3c00;
-    margin-left:40px;
-  }
-  h1::before {
-    content: "➤"; /* Unicode-Pfeil */
-    font-size: 65px;
-    top:-21px;
-    color: red;
-    position: absolute;
-    left: -30px;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  h1.active::before {
-    opacity: 1;
-    transform: translateX(0);
   }
   
   .welcome {
     font-size: 3.5rem;
-    margin-bottom: 2rem;  
+    margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    background-image: url(./public/lion.png);
+   /* background-image: url(./public/lion.png);
     width: 1300px;
-    height: 700px;
+    height: 700px; */
     padding: 40px;
-    margin-left: unset;
   }
   
   a {
@@ -59,7 +42,7 @@
   }
   
   a:hover {
-    color: black;
+    color: #fff;
     text-decoration: underline;
   }
   
@@ -111,7 +94,7 @@
   }
   
   .post-tags li {
-    background-color: #e9e9e9;
+    background-color: #1a1a1a;
     color: #ff3c00;
     padding: 0.3rem 0.8rem;
     margin-right: 0.5rem;
@@ -243,26 +226,11 @@
   .c20 { --index: 12; }
 
 
-
-
-
-  .cc div[style*="padding-top:20px"] > div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .cc div[style*="padding-top:20px"] > div > div {
-    text-align: center;
-  }
-  
-
   .list {                
-    display: flex;  /* Use flexbox to arrange items in a line */
-    list-style-type: none;  /* Remove bullet points */
-    padding: 0;  /* Remove default padding */
-    gap: 10px;  /* Add some space between items */
+      display: flex;  /* Use flexbox to arrange items in a line */
+      list-style-type: none;  /* Remove bullet points */
+      padding: 0;  /* Remove default padding */
+      gap: 10px;  /* Add some space between items */
   }
   .welcome {
       display: inline-flex;
