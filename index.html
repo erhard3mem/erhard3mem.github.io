@@ -48,10 +48,22 @@ body {
   padding-inline: 20px; padding-block: 28px 48px;
 }
 .wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 28px; }
-header { display: grid; gap: 8px; max-width: 68ch; }
+header { display: grid; gap: 8px; }
+.top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
 .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(34px, 5vw, 52px); line-height: 1.05; margin: 0; text-wrap: balance; }
-.lede { margin: 0; color: var(--muted); }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(34px, 5vw, 52px); line-height: 1.05; margin: 0; text-wrap: balance; max-width: 22ch; }
+.lede { margin: 0; color: var(--muted); max-width: 68ch; }
+
+.lang { display: inline-flex; border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; background: var(--paper); }
+.lang button {
+  border: 0; border-radius: 0; padding: 7px 12px; min-width: 44px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
+  background: transparent; color: var(--muted); cursor: pointer;
+}
+.lang button + button { border-left: 1px solid var(--rule); }
+.lang button:hover { color: var(--ink); }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.lang button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
 @media (max-width: 880px) { .grid { grid-template-columns: minmax(0, 1fr); } .chart-col { order: -1; } }
@@ -72,7 +84,7 @@ svg text { font-family: var(--f-mono); }
 .info p { margin: 0; }
 
 .quiz { display: grid; gap: 28px; }
-fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; }
+fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; min-width: 0; }
 .section-head { display: grid; gap: 2px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
 .section-head h2 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 26px; }
 .section-head span { color: var(--muted); font-size: 15px; }
@@ -85,8 +97,9 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; }
 .scale label {
   display: grid; place-items: center; text-align: center;
   font-family: var(--f-mono); font-size: 11px; line-height: 1.25; color: var(--muted);
-  border: 1px solid var(--rule); border-radius: 4px; padding: 8px 4px; min-height: 44px;
+  border: 1px solid var(--rule); border-radius: 4px; padding: 8px 4px; min-height: 48px;
   cursor: pointer; background: var(--paper); transition: background .15s, border-color .15s, color .15s;
+  hyphens: auto; overflow-wrap: anywhere;
 }
 .scale label:hover { border-color: var(--accent); color: var(--ink); }
 .scale input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -95,20 +108,20 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; }
 .bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
 .progress { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .btns { display: flex; gap: 8px; flex-wrap: wrap; }
-button {
+.btns button {
   font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.04em;
   border: 1px solid var(--ink); background: transparent; color: var(--ink);
   padding: 9px 14px; border-radius: 4px; cursor: pointer;
 }
-button.primary { background: var(--ink); color: var(--bg); }
-button:hover { border-color: var(--accent); }
-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btns button.primary { background: var(--ink); color: var(--bg); }
+.btns button:hover { border-color: var(--accent); }
+.btns button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .result { background: var(--accent-soft); border-radius: 6px; padding: 16px 18px; display: grid; gap: 6px; }
 .result h3 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 24px; }
 .result p { margin: 0; }
 .result .coords { font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
-.note { font-size: 14px; color: var(--muted); max-width: 68ch; }
+.note { font-size: 14px; color: var(--muted); max-width: 68ch; margin: 0; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 @media (prefers-reduced-motion: no-preference) {
@@ -120,9 +133,16 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <div class="wrap">
   <header>
-    <span class="eyebrow">Epistemology × Ontology</span>
-    <h1>Where do you stand in philosophy?</h1>
-    <p class="lede">Twelve statements, two axes. The horizontal axis asks how we come to know (objective truth or relative perspective). The vertical axis asks what reality ultimately rests on (idea and essence, or matter and existence). Your point moves as you answer.</p>
+    <div class="top">
+      <span class="eyebrow" id="t-eyebrow"></span>
+      <div class="lang" role="group" aria-label="Language / Sprache / Idioma">
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="de" lang="de">DE</button>
+        <button type="button" data-lang="es" lang="es">ES</button>
+      </div>
+    </div>
+    <h1 id="t-h1"></h1>
+    <p class="lede" id="t-lede"></p>
   </header>
 
   <div class="grid">
@@ -130,10 +150,10 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
       <div id="sections"></div>
 
       <div class="bar">
-        <span class="progress" id="progress">0 / 12 answered</span>
+        <span class="progress" id="progress"></span>
         <div class="btns">
-          <button type="button" id="reset">Reset</button>
-          <button type="submit" class="primary" id="show">Show my result</button>
+          <button type="button" id="reset"></button>
+          <button type="submit" class="primary" id="show"></button>
         </div>
       </div>
 
@@ -143,19 +163,19 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
         <p id="res-text"></p>
       </div>
 
-      <p class="note">A deliberately simplified model. Real positions rarely fit two dimensions: Kant, for instance, is an empirical realist and a transcendental idealist at once. Treat the chart as a conversation starter, not a verdict.</p>
+      <p class="note" id="t-note"></p>
     </form>
 
     <aside class="chart-col">
       <div class="chart">
         <svg id="chart" viewBox="0 0 480 480" role="img" aria-labelledby="chart-title">
-          <title id="chart-title">Philosophy matrix with fixed positions of Plato, Kant, Confucius, Sartre, Beauvoir, Žižek and your own position</title>
+          <title id="chart-title"></title>
         </svg>
       </div>
       <div class="info" id="info" aria-live="polite">
-        <h3 id="info-name">The anchors</h3>
-        <span class="coords" id="info-coords">Select a thinker on the chart</span>
-        <p id="info-text">The six thinkers are fixed reference points. Tap or click one to read why it sits where it does. Your own position appears in blue once you have answered at least one question on each axis.</p>
+        <h3 id="info-name"></h3>
+        <span class="coords" id="info-coords"></span>
+        <p id="info-text"></p>
       </div>
     </aside>
   </div>
@@ -163,43 +183,201 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <script>
 (function () {
+  // ================= Texts =================
+  const T = {
+    en: {
+      eyebrow: "Epistemology × Ontology",
+      h1: "Where do you stand in philosophy?",
+      lede: "Twelve statements, two axes. The horizontal axis asks how we come to know (objective truth or relative perspective). The vertical axis asks what reality ultimately rests on (idea and essence, or matter and existence). Your point moves as you answer.",
+      likert: ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+      sections: [
+        { title: "How do we know?", sub: "Epistemology · objectivism versus relativism" },
+        { title: "What is real?", sub: "Ontology · idea and essence versus matter and existence" }
+      ],
+      questions: [
+        "There are truths that hold regardless of what any person or culture believes.",
+        "Moral judgments are ultimately expressions of a cultural or personal perspective.",
+        "Mathematics describes a reality we discover, not a system we invent.",
+        "What counts as knowledge depends largely on the community that recognizes it.",
+        "If two people disagree about a factual matter, at least one of them must be wrong.",
+        "There is no view from nowhere: every claim is shaped by the standpoint of whoever makes it.",
+        "Mind or consciousness is more fundamental than matter.",
+        "Human beings have a given nature that defines what they ought to become.",
+        "We first exist and only afterwards define who we are through our choices.",
+        "Everything, including thought, can in principle be explained by physical processes.",
+        "Ideas such as justice or beauty exist in some sense beyond the concrete things that show them.",
+        "The material conditions of life shape consciousness more than consciousness shapes them."
+      ],
+      progress: n => `${n} / 12 answered`,
+      reset: "Reset",
+      show: "Show my result",
+      note: "A deliberately simplified model. Real positions rarely fit two dimensions: Kant, for instance, is an empirical realist and a transcendental idealist at once. Treat the chart as a conversation starter, not a verdict.",
+      chartTitle: "Philosophy matrix with fixed positions of Plato, Kant, Confucius, Sartre, Beauvoir, Žižek and your own position",
+      axes: { top: "IDEALISM · ESSENCE", bottom: "MATERIALISM · EXISTENCE", left: "RELATIVISM", right: "OBJECTIVISM" },
+      quads: { tl: "relative idealism", tr: "objective idealism", bl: "existential relativism", br: "objective materialism" },
+      you: "You",
+      infoName: "The anchors",
+      infoCoords: "Select a thinker on the chart",
+      infoText: "The six thinkers are fixed reference points. Tap or click one to read why it sits where it does. Your own position appears in blue once you have answered at least one question on each axis.",
+      resCoords: (x, y) => `x ${x} (objectivism)  ·  y ${y} (idealism)`,
+      resNearest: (a, d1, b, d2) => `Closest anchor: ${a} (distance ${d1}), followed by ${b} (${d2}).`,
+      resPartial: n => ` Based on ${n} of 12 answers.`,
+      notEnoughTitle: "Not enough answers yet",
+      notEnoughText: "Answer at least one statement in each of the two sections to place yourself on the chart.",
+      quadName: {
+        "obj-ide": "Objectivist and idealist", "obj-mid": "Objectivist, between idea and matter", "obj-mat": "Objectivist and materialist",
+        "bal-ide": "Epistemically balanced, idealist", "bal-mid": "Near the centre", "bal-mat": "Epistemically balanced, materialist / existentialist",
+        "rel-ide": "Relativist and idealist", "rel-mid": "Relativist, between idea and matter", "rel-mat": "Relativist and existentialist / materialist"
+      },
+      philo: {
+        plato: ["Plato", "Grounds philosophy in the eternal, unchanging Forms as the truest reality. Strict objectivist: truth is absolute and independent of human opinion."],
+        kant: ["Immanuel Kant", "Transcendental idealism. The world exists, but how we experience it is necessarily shaped by the structures of the mind, such as space, time and causality."],
+        confucius: ["Confucius", "Avoids abstract metaphysics and focuses on lived practice. Knowledge and morality prove themselves in reliable conduct (xin) and in keeping social relations and rites (li)."],
+        sartre: ["Sartre", "Existence precedes essence. There is no given human nature; values and meaning arise only through the individual's free choice in a concrete situation."],
+        beauvoir: ["Beauvoir", "Existentialist like Sartre: one is not born a fixed essence but becomes who one is. Freedom is always situated in concrete bodily and social conditions."],
+        zizek: ["Žižek", "Self-described dialectical materialist. Reality is not harmonious or closed but runs through with an inner rift and contradiction, the Lacanian Real."]
+      }
+    },
+    de: {
+      eyebrow: "Erkenntnistheorie × Ontologie",
+      h1: "Wo stehst du in der Philosophie?",
+      lede: "Zwölf Aussagen, zwei Achsen. Die horizontale Achse fragt, wie wir zu Wissen gelangen (objektive Wahrheit oder relative Perspektive). Die vertikale Achse fragt, worauf die Wirklichkeit letztlich beruht (Idee und Essenz oder Materie und Existenz). Dein Punkt bewegt sich mit jeder Antwort.",
+      likert: ["Stimme gar nicht zu", "Stimme nicht zu", "Neutral", "Stimme zu", "Stimme voll zu"],
+      sections: [
+        { title: "Wie erkennen wir?", sub: "Erkenntnistheorie · Objektivismus versus Relativismus" },
+        { title: "Was ist wirklich?", sub: "Ontologie · Idee und Essenz versus Materie und Existenz" }
+      ],
+      questions: [
+        "Es gibt Wahrheiten, die gelten, egal was ein Mensch oder eine Kultur glaubt.",
+        "Moralische Urteile sind letztlich Ausdruck einer kulturellen oder persönlichen Perspektive.",
+        "Die Mathematik beschreibt eine Wirklichkeit, die wir entdecken, kein System, das wir erfinden.",
+        "Was als Wissen gilt, hängt weitgehend von der Gemeinschaft ab, die es anerkennt.",
+        "Wenn zwei Menschen über eine Tatsachenfrage uneins sind, muss mindestens einer von ihnen falsch liegen.",
+        "Es gibt keinen Blick von nirgendwo: Jede Behauptung ist vom Standpunkt dessen geprägt, der sie aufstellt.",
+        "Geist oder Bewusstsein ist grundlegender als Materie.",
+        "Der Mensch hat eine vorgegebene Natur, die bestimmt, was aus ihm werden soll.",
+        "Wir existieren zuerst und bestimmen erst danach durch unsere Entscheidungen, wer wir sind.",
+        "Alles, auch das Denken, lässt sich grundsätzlich durch physikalische Prozesse erklären.",
+        "Ideen wie Gerechtigkeit oder Schönheit existieren in gewissem Sinn jenseits der konkreten Dinge, an denen sie sich zeigen.",
+        "Die materiellen Lebensbedingungen prägen das Bewusstsein stärker, als das Bewusstsein sie prägt."
+      ],
+      progress: n => `${n} / 12 beantwortet`,
+      reset: "Zurücksetzen",
+      show: "Mein Ergebnis anzeigen",
+      note: "Ein bewusst vereinfachtes Modell. Reale Positionen passen selten in zwei Dimensionen: Kant etwa ist zugleich empirischer Realist und transzendentaler Idealist. Das Diagramm ist ein Gesprächsanlass, kein Urteil.",
+      chartTitle: "Philosophie-Matrix mit den festen Positionen von Platon, Kant, Konfuzius, Sartre, Beauvoir, Žižek und deiner eigenen Position",
+      axes: { top: "IDEALISMUS · ESSENZ", bottom: "MATERIALISMUS · EXISTENZ", left: "RELATIVISMUS", right: "OBJEKTIVISMUS" },
+      quads: { tl: "relativer Idealismus", tr: "objektiver Idealismus", bl: "existenzieller Relativismus", br: "objektiver Materialismus" },
+      you: "Du",
+      infoName: "Die Fixpunkte",
+      infoCoords: "Wähle einen Denker im Diagramm",
+      infoText: "Die sechs Denker sind feste Bezugspunkte. Tippe oder klicke auf einen, um zu lesen, warum er dort steht. Deine eigene Position erscheint in Blau, sobald du auf jeder Achse mindestens eine Frage beantwortet hast.",
+      resCoords: (x, y) => `x ${x} (Objektivismus)  ·  y ${y} (Idealismus)`,
+      resNearest: (a, d1, b, d2) => `Nächster Fixpunkt: ${a} (Abstand ${d1}), gefolgt von ${b} (${d2}).`,
+      resPartial: n => ` Basierend auf ${n} von 12 Antworten.`,
+      notEnoughTitle: "Noch zu wenige Antworten",
+      notEnoughText: "Beantworte in jedem der beiden Abschnitte mindestens eine Aussage, um dich im Diagramm zu verorten.",
+      quadName: {
+        "obj-ide": "Objektivistisch und idealistisch", "obj-mid": "Objektivistisch, zwischen Idee und Materie", "obj-mat": "Objektivistisch und materialistisch",
+        "bal-ide": "Erkenntnistheoretisch ausgewogen, idealistisch", "bal-mid": "Nahe der Mitte", "bal-mat": "Erkenntnistheoretisch ausgewogen, materialistisch / existenzialistisch",
+        "rel-ide": "Relativistisch und idealistisch", "rel-mid": "Relativistisch, zwischen Idee und Materie", "rel-mat": "Relativistisch und existenzialistisch / materialistisch"
+      },
+      philo: {
+        plato: ["Platon", "Stützt seine Philosophie auf die ewigen, unveränderlichen Formen (Ideen) als die wahrste Wirklichkeit. Strikter Objektivist: Wahrheit ist absolut und unabhängig von menschlichen Meinungen."],
+        kant: ["Immanuel Kant", "Transzendentaler Idealismus. Die Welt existiert, doch wie wir sie erfahren, wird zwingend durch die Strukturen des Verstandes wie Raum, Zeit und Kausalität geformt."],
+        confucius: ["Konfuzius", "Meidet abstrakte Metaphysik und konzentriert sich auf die gelebte Praxis. Erkenntnis und Moral beweisen sich im verlässlichen Handeln (Xin) und im Einhalten gesellschaftlicher Beziehungen und Rituale (Li)."],
+        sartre: ["Sartre", "Die Existenz geht der Essenz voraus. Es gibt keine vorgegebene menschliche Natur; Werte und Sinn entstehen erst durch die freie Entscheidung des Einzelnen in seiner konkreten Situation."],
+        beauvoir: ["Beauvoir", "Existenzialistin wie Sartre: Man wird nicht als feste Essenz geboren, sondern wird zu dem, was man ist. Freiheit ist stets in konkrete körperliche und gesellschaftliche Bedingungen eingebettet."],
+        zizek: ["Žižek", "Versteht sich als dialektischer Materialist. Die Wirklichkeit ist nicht harmonisch oder geschlossen, sondern von einem inneren Riss und Widerspruch durchzogen, dem Lacan'schen Realen."]
+      }
+    },
+    es: {
+      eyebrow: "Epistemología × Ontología",
+      h1: "¿Dónde te sitúas en la filosofía?",
+      lede: "Doce afirmaciones, dos ejes. El eje horizontal pregunta cómo llegamos al conocimiento (verdad objetiva o perspectiva relativa). El eje vertical pregunta en qué se basa en última instancia la realidad (idea y esencia, o materia y existencia). Tu punto se mueve con cada respuesta.",
+      likert: ["Totalmente en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Totalmente de acuerdo"],
+      sections: [
+        { title: "¿Cómo conocemos?", sub: "Epistemología · objetivismo frente a relativismo" },
+        { title: "¿Qué es real?", sub: "Ontología · idea y esencia frente a materia y existencia" }
+      ],
+      questions: [
+        "Hay verdades que valen independientemente de lo que crea cualquier persona o cultura.",
+        "Los juicios morales son, en última instancia, expresión de una perspectiva cultural o personal.",
+        "Las matemáticas describen una realidad que descubrimos, no un sistema que inventamos.",
+        "Lo que cuenta como conocimiento depende en gran medida de la comunidad que lo reconoce.",
+        "Si dos personas discrepan sobre una cuestión de hecho, al menos una de ellas debe estar equivocada.",
+        "No existe una mirada desde ninguna parte: toda afirmación está marcada por el punto de vista de quien la hace.",
+        "La mente o la conciencia es más fundamental que la materia.",
+        "El ser humano tiene una naturaleza dada que define lo que debe llegar a ser.",
+        "Primero existimos y solo después definimos quiénes somos mediante nuestras decisiones.",
+        "Todo, incluido el pensamiento, puede en principio explicarse mediante procesos físicos.",
+        "Ideas como la justicia o la belleza existen en cierto sentido más allá de las cosas concretas que las muestran.",
+        "Las condiciones materiales de la vida moldean la conciencia más de lo que la conciencia las moldea a ellas."
+      ],
+      progress: n => `${n} / 12 respondidas`,
+      reset: "Reiniciar",
+      show: "Mostrar mi resultado",
+      note: "Un modelo deliberadamente simplificado. Las posiciones reales rara vez caben en dos dimensiones: Kant, por ejemplo, es a la vez realista empírico e idealista trascendental. Toma el gráfico como punto de partida para conversar, no como veredicto.",
+      chartTitle: "Matriz filosófica con las posiciones fijas de Platón, Kant, Confucio, Sartre, Beauvoir, Žižek y tu propia posición",
+      axes: { top: "IDEALISMO · ESENCIA", bottom: "MATERIALISMO · EXISTENCIA", left: "RELATIVISMO", right: "OBJETIVISMO" },
+      quads: { tl: "idealismo relativo", tr: "idealismo objetivo", bl: "relativismo existencial", br: "materialismo objetivo" },
+      you: "Tú",
+      infoName: "Los puntos de referencia",
+      infoCoords: "Selecciona un pensador en el gráfico",
+      infoText: "Los seis pensadores son puntos de referencia fijos. Toca o haz clic en uno para leer por qué está ahí. Tu propia posición aparece en azul en cuanto hayas respondido al menos una pregunta de cada eje.",
+      resCoords: (x, y) => `x ${x} (objetivismo)  ·  y ${y} (idealismo)`,
+      resNearest: (a, d1, b, d2) => `Referencia más cercana: ${a} (distancia ${d1}), seguida de ${b} (${d2}).`,
+      resPartial: n => ` Basado en ${n} de 12 respuestas.`,
+      notEnoughTitle: "Todavía faltan respuestas",
+      notEnoughText: "Responde al menos una afirmación en cada una de las dos secciones para situarte en el gráfico.",
+      quadName: {
+        "obj-ide": "Objetivista e idealista", "obj-mid": "Objetivista, entre idea y materia", "obj-mat": "Objetivista y materialista",
+        "bal-ide": "Epistemológicamente equilibrado, idealista", "bal-mid": "Cerca del centro", "bal-mat": "Epistemológicamente equilibrado, materialista / existencialista",
+        "rel-ide": "Relativista e idealista", "rel-mid": "Relativista, entre idea y materia", "rel-mat": "Relativista y existencialista / materialista"
+      },
+      philo: {
+        plato: ["Platón", "Basa su filosofía en las Formas (Ideas) eternas e inmutables como la realidad más verdadera. Objetivista estricto: la verdad es absoluta e independiente de las opiniones humanas."],
+        kant: ["Immanuel Kant", "Idealismo trascendental. El mundo existe, pero la forma en que lo experimentamos está necesariamente moldeada por las estructuras de la mente, como el espacio, el tiempo y la causalidad."],
+        confucius: ["Confucio", "Evita la metafísica abstracta y se centra en la práctica vivida. El conocimiento y la moral se demuestran en la conducta fiable (xin) y en el respeto de las relaciones sociales y los ritos (li)."],
+        sartre: ["Sartre", "La existencia precede a la esencia. No hay una naturaleza humana dada; los valores y el sentido surgen solo de la libre elección del individuo en su situación concreta."],
+        beauvoir: ["Beauvoir", "Existencialista como Sartre: no se nace con una esencia fija, sino que se llega a ser quien se es. La libertad siempre está situada en condiciones corporales y sociales concretas."],
+        zizek: ["Žižek", "Se define como materialista dialéctico. La realidad no es armónica ni cerrada, sino que está atravesada por una grieta y una contradicción internas: lo Real lacaniano."]
+      }
+    }
+  };
+
+  // ================= Model =================
   // Axis X: +10 = objectivism, -10 = relativism.  Axis Y: +10 = idealism/essence, -10 = materialism/existence.
   const PHILOSOPHERS = [
-    { id: "plato", name: "Plato", x: 8.5, y: 8.5, lx: -10, ly: 18, anchor: "end",
-      text: "Grounds philosophy in the eternal, unchanging Forms as the truest reality. Strict objectivist: truth is absolute and independent of human opinion." },
-    { id: "kant", name: "Immanuel Kant", x: -1.5, y: 5, lx: 0, ly: -12, anchor: "middle",
-      text: "Transcendental idealism. The world exists, but how we experience it is necessarily shaped by the structures of the mind, such as space, time and causality." },
-    { id: "confucius", name: "Confucius", x: 3.5, y: -3, lx: 10, ly: 4, anchor: "start",
-      text: "Avoids abstract metaphysics and focuses on lived practice. Knowledge and morality prove themselves in reliable conduct (xin) and in keeping social relations and rites (li)." },
-    { id: "sartre", name: "Sartre", x: -6.5, y: -5.5, lx: -10, ly: 4, anchor: "end",
-      text: "Existence precedes essence. There is no given human nature; values and meaning arise only through the individual's free choice in a concrete situation." },
-    { id: "beauvoir", name: "Beauvoir", x: -5, y: -7.5, lx: -10, ly: 10, anchor: "end",
-      text: "Existentialist like Sartre: one is not born a fixed essence but becomes who one is. Freedom is always situated in concrete bodily and social conditions." },
-    { id: "zizek", name: "Žižek", x: -2, y: -8.5, lx: 10, ly: 4, anchor: "start",
-      text: "Self-described dialectical materialist. Reality is not harmonious or closed but runs through with an inner rift and contradiction, the Lacanian Real." }
+    { id: "plato", x: 8.5, y: 8.5, lx: -10, ly: 18, anchor: "end" },
+    { id: "kant", x: -1.5, y: 5, lx: 0, ly: -12, anchor: "middle" },
+    { id: "confucius", x: 3.5, y: -3, lx: 10, ly: 4, anchor: "start" },
+    { id: "sartre", x: -6.5, y: -5.5, lx: -10, ly: 4, anchor: "end" },
+    { id: "beauvoir", x: -5, y: -7.5, lx: -10, ly: 10, anchor: "end" },
+    { id: "zizek", x: -2, y: -8.5, lx: 10, ly: 4, anchor: "start" }
   ];
-
-  const LIKERT = ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"];
-
+  // d: +1 = agreeing pushes toward objectivism / idealism, -1 = toward relativism / materialism
   const SECTIONS = [
-    { axis: "x", title: "How do we know?", sub: "Epistemology · objectivism versus relativism", items: [
-      { t: "There are truths that hold regardless of what any person or culture believes.", d: 1 },
-      { t: "Moral judgments are ultimately expressions of a cultural or personal perspective.", d: -1 },
-      { t: "Mathematics describes a reality we discover, not a system we invent.", d: 1 },
-      { t: "What counts as knowledge depends largely on the community that recognizes it.", d: -1 },
-      { t: "If two people disagree about a factual matter, at least one of them must be wrong.", d: 1 },
-      { t: "There is no view from nowhere: every claim is shaped by the standpoint of whoever makes it.", d: -1 }
-    ]},
-    { axis: "y", title: "What is real?", sub: "Ontology · idea and essence versus matter and existence", items: [
-      { t: "Mind or consciousness is more fundamental than matter.", d: 1 },
-      { t: "Human beings have a given nature that defines what they ought to become.", d: 1 },
-      { t: "We first exist and only afterwards define who we are through our choices.", d: -1 },
-      { t: "Everything, including thought, can in principle be explained by physical processes.", d: -1 },
-      { t: "Ideas such as justice or beauty exist in some sense beyond the concrete things that show them.", d: 1 },
-      { t: "The material conditions of life shape consciousness more than consciousness shapes them.", d: -1 }
-    ]}
+    { axis: "x", dirs: [1, -1, 1, -1, 1, -1] },
+    { axis: "y", dirs: [1, 1, -1, -1, 1, -1] }
   ];
 
+  const STORE_ANS = "philosophy-compass-answers";
+  const STORE_LANG = "philosophy-compass-lang";
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  let lang = store.get(STORE_LANG);
+  if (!T[lang]) {
+    const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
+    lang = T[nav] ? nav : "en";
+  }
+  let resultMode = null; // null | "ok" | "insufficient"
+  let activePhilo = null;
+
+  // ================= Chart =================
   const NS = "http://www.w3.org/2000/svg";
   const C = 240, S = 19; // center and px per unit (±10 → 50..430)
   const px = x => C + x * S, py = y => C - y * S;
@@ -211,7 +389,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     return n;
   };
 
-  // ---- chart ----
   el("rect", { x: 240, y: 50, width: 190, height: 190, fill: "var(--quad-a)" });
   el("rect", { x: 50, y: 240, width: 190, height: 190, fill: "var(--quad-a)" });
   el("rect", { x: 50, y: 50, width: 190, height: 190, fill: "var(--quad-b)" });
@@ -225,74 +402,80 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   el("line", { x1: 50, y1: 240, x2: 430, y2: 240, stroke: "var(--muted)", "stroke-width": 1.2 });
   el("line", { x1: 240, y1: 50, x2: 240, y2: 430, stroke: "var(--muted)", "stroke-width": 1.2 });
 
-  const axisLabel = (txt, x, y, anchor, rot) => {
-    const t = el("text", { x, y, "text-anchor": anchor, "font-size": 11, fill: "var(--ink)", "letter-spacing": "0.1em" });
+  const axisLabel = (x, y, rot) => {
+    const t = el("text", { x, y, "text-anchor": "middle", "font-size": 11, fill: "var(--ink)", "letter-spacing": "0.1em" });
     if (rot) t.setAttribute("transform", `rotate(${rot} ${x} ${y})`);
-    t.textContent = txt;
+    return t;
   };
-  axisLabel("IDEALISM · ESSENCE", 240, 36, "middle");
-  axisLabel("MATERIALISM · EXISTENCE", 240, 454, "middle");
-  axisLabel("RELATIVISM", 32, 240, "middle", -90);
-  axisLabel("OBJECTIVISM", 448, 240, "middle", 90);
+  const axisEls = { top: axisLabel(240, 36), bottom: axisLabel(240, 454), left: axisLabel(32, 240, -90), right: axisLabel(448, 240, 90) };
 
-  const quad = (txt, x, y, anchor) => {
-    const t = el("text", { x, y, "text-anchor": anchor, "font-size": 9.5, fill: "var(--muted)", "font-style": "italic" });
-    t.textContent = txt;
-  };
-  quad("relative idealism", 58, 66, "start");
-  quad("objective idealism", 422, 66, "end");
-  quad("existential relativism", 58, 422, "start");
-  quad("objective materialism", 422, 422, "end");
+  const quadLabel = (x, y, anchor) => el("text", { x, y, "text-anchor": anchor, "font-size": 9.5, fill: "var(--muted)", "font-style": "italic" });
+  const quadEls = { tl: quadLabel(58, 66, "start"), tr: quadLabel(422, 66, "end"), bl: quadLabel(58, 422, "start"), br: quadLabel(422, 422, "end") };
 
   const info = { name: document.getElementById("info-name"), coords: document.getElementById("info-coords"), text: document.getElementById("info-text") };
-  const fmt = n => (n > 0 ? "+" : n < 0 ? "−" : "±") + Math.abs(n).toFixed(1);
   const nodes = {};
   PHILOSOPHERS.forEach(p => {
-    const g = el("g", { class: "philo-dot", tabindex: 0, role: "button", "aria-label": p.name });
+    const g = el("g", { class: "philo-dot", tabindex: 0, role: "button" });
     el("circle", { class: "hit", cx: px(p.x), cy: py(p.y), r: 9, fill: "transparent", stroke: "transparent" }, g);
     el("circle", { class: "core", cx: px(p.x), cy: py(p.y), r: 5, fill: "var(--philo)" }, g);
-    const t = el("text", { x: px(p.x) + p.lx, y: py(p.y) + p.ly, "text-anchor": p.anchor, "font-size": 11.5, fill: "var(--ink)", "font-weight": 500 }, g);
-    t.textContent = p.name;
-    const pick = () => {
-      Object.values(nodes).forEach(n => n.classList.remove("active"));
-      g.classList.add("active");
-      info.name.textContent = p.name;
-      info.coords.textContent = `x ${fmt(p.x)} · y ${fmt(p.y)}`;
-      info.text.textContent = p.text;
-    };
+    const label = el("text", { x: px(p.x) + p.lx, y: py(p.y) + p.ly, "text-anchor": p.anchor, "font-size": 11.5, fill: "var(--ink)", "font-weight": 500 }, g);
+    const pick = () => { activePhilo = p.id; renderInfo(); };
     g.addEventListener("click", pick);
     g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
-    nodes[p.id] = g;
+    nodes[p.id] = { g, label, p };
   });
 
   const you = el("g", { id: "you", style: "transform: translate(240px,240px)" });
   el("circle", { r: 14, fill: "var(--accent-soft)" }, you);
   el("circle", { r: 7, fill: "var(--accent)", stroke: "var(--paper)", "stroke-width": 2 }, you);
   const youTxt = el("text", { x: 0, y: -18, "text-anchor": "middle", "font-size": 12, fill: "var(--accent)", "font-weight": 500 }, you);
-  youTxt.textContent = "You";
   you.style.display = "none";
 
-  // ---- questionnaire ----
+  // ================= Questionnaire (built once, texts filled per language) =================
   const host = document.getElementById("sections");
+  const qEls = []; // { text, labels[] }
+  const secEls = [];
   let n = 0;
   SECTIONS.forEach(sec => {
     const fs = document.createElement("fieldset");
     fs.className = "section";
-    fs.innerHTML = `<div class="section-head"><h2>${sec.title}</h2><span>${sec.sub}</span></div>`;
-    sec.items.forEach(item => {
+    const head = document.createElement("div");
+    head.className = "section-head";
+    const h2 = document.createElement("h2");
+    const sub = document.createElement("span");
+    head.append(h2, sub);
+    fs.appendChild(head);
+    secEls.push({ h2, sub });
+    sec.ids = [];
+    sec.dirs.forEach(() => {
       n++;
       const id = "q" + n;
-      item.id = id;
+      sec.ids.push(id);
       const q = document.createElement("div");
       q.className = "q";
       q.setAttribute("role", "radiogroup");
       q.setAttribute("aria-labelledby", id + "-t");
-      let html = `<p id="${id}-t"><span class="num">${String(n).padStart(2, "0")}</span>${item.t}</p><div class="scale">`;
-      LIKERT.forEach((l, i) => {
-        html += `<input type="radio" name="${id}" id="${id}-${i}" value="${i - 2}"><label for="${id}-${i}">${l}</label>`;
-      });
-      q.innerHTML = html + "</div>";
+      const p = document.createElement("p");
+      p.id = id + "-t";
+      const num = document.createElement("span");
+      num.className = "num";
+      num.textContent = String(n).padStart(2, "0");
+      const txt = document.createElement("span");
+      p.append(num, txt);
+      const scale = document.createElement("div");
+      scale.className = "scale";
+      const labels = [];
+      for (let i = 0; i < 5; i++) {
+        const inp = document.createElement("input");
+        inp.type = "radio"; inp.name = id; inp.id = `${id}-${i}`; inp.value = String(i - 2);
+        const lab = document.createElement("label");
+        lab.htmlFor = inp.id;
+        scale.append(inp, lab);
+        labels.push(lab);
+      }
+      q.append(p, scale);
       fs.appendChild(q);
+      qEls.push({ txt, labels });
     });
     host.appendChild(fs);
   });
@@ -300,14 +483,21 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   const form = document.getElementById("quiz");
   const progress = document.getElementById("progress");
   const result = document.getElementById("result");
+  const $ = id => document.getElementById(id);
+
+  const fmt = v => {
+    const s = new Intl.NumberFormat(lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(Math.abs(v));
+    return (v > 0.05 ? "+" : v < -0.05 ? "−" : "±") + s;
+  };
+  const num1 = v => new Intl.NumberFormat(lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v);
 
   function score() {
     const out = { x: null, y: null, answered: 0 };
     SECTIONS.forEach(sec => {
       let sum = 0, cnt = 0;
-      sec.items.forEach(item => {
-        const c = form.querySelector(`input[name="${item.id}"]:checked`);
-        if (c) { sum += Number(c.value) * item.d; cnt++; }
+      sec.ids.forEach((id, i) => {
+        const c = form.querySelector(`input[name="${id}"]:checked`);
+        if (c) { sum += Number(c.value) * sec.dirs[i]; cnt++; }
       });
       out.answered += cnt;
       if (cnt) out[sec.axis] = (sum / cnt) * 5; // mean in [-2,2] → [-10,10]
@@ -315,71 +505,112 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     return out;
   }
 
-  function quadrantName(x, y) {
-    const h = Math.abs(x) < 1.5 ? "balanced" : x > 0 ? "objectivist" : "relativist";
-    const v = Math.abs(y) < 1.5 ? "between idea and matter" : y > 0 ? "idealist" : "materialist / existentialist";
-    if (h === "balanced" && v === "between idea and matter") return "Near the centre";
-    if (h === "balanced") return "Epistemically balanced, " + v;
-    if (v === "between idea and matter") return h.charAt(0).toUpperCase() + h.slice(1) + ", " + v;
-    return h.charAt(0).toUpperCase() + h.slice(1) + " and " + v;
-  }
+  const quadKey = (x, y) =>
+    (Math.abs(x) < 1.5 ? "bal" : x > 0 ? "obj" : "rel") + "-" + (Math.abs(y) < 1.5 ? "mid" : y > 0 ? "ide" : "mat");
 
-  function nearest(x, y) {
-    return PHILOSOPHERS.map(p => ({ p, d: Math.hypot(p.x - x, p.y - y) })).sort((a, b) => a.d - b.d);
-  }
-
-  function update(showResult) {
-    const s = score();
-    progress.textContent = `${s.answered} / 12 answered`;
-    if (s.x === null || s.y === null) { you.style.display = "none"; result.hidden = true; return s; }
-    you.style.display = "";
-    you.style.transform = `translate(${px(s.x)}px, ${py(s.y)}px)`;
-    if (showResult || !result.hidden) {
-      const [first, second] = nearest(s.x, s.y);
-      document.getElementById("res-title").textContent = quadrantName(s.x, s.y);
-      document.getElementById("res-coords").textContent = `x ${fmt(s.x)} (objectivism)  ·  y ${fmt(s.y)} (idealism)`;
-      document.getElementById("res-text").textContent =
-        `Closest anchor: ${first.p.name} (distance ${first.d.toFixed(1)}), followed by ${second.p.name} (${second.d.toFixed(1)}).` +
-        (s.answered < 12 ? ` Based on ${s.answered} of 12 answers.` : "");
-      result.hidden = false;
+  function renderInfo() {
+    const L = T[lang];
+    Object.values(nodes).forEach(nd => nd.g.classList.toggle("active", nd.p.id === activePhilo));
+    if (!activePhilo) {
+      info.name.textContent = L.infoName;
+      info.coords.textContent = L.infoCoords;
+      info.text.textContent = L.infoText;
+      return;
     }
-    return s;
+    const nd = nodes[activePhilo];
+    info.name.textContent = L.philo[activePhilo][0];
+    info.coords.textContent = `x ${fmt(nd.p.x)} · y ${fmt(nd.p.y)}`;
+    info.text.textContent = L.philo[activePhilo][1];
   }
 
-  form.addEventListener("change", () => { update(false); save(); });
+  function update() {
+    const L = T[lang];
+    const s = score();
+    progress.textContent = L.progress(s.answered);
+    const placed = s.x !== null && s.y !== null;
+    you.style.display = placed ? "" : "none";
+    if (placed) you.style.transform = `translate(${px(s.x)}px, ${py(s.y)}px)`;
+
+    if (resultMode && placed) resultMode = "ok";
+    if (resultMode === "ok" && !placed) resultMode = null;
+
+    if (resultMode === "ok") {
+      const ranked = PHILOSOPHERS.map(p => ({ p, d: Math.hypot(p.x - s.x, p.y - s.y) })).sort((a, b) => a.d - b.d);
+      $("res-title").textContent = L.quadName[quadKey(s.x, s.y)];
+      $("res-coords").textContent = L.resCoords(fmt(s.x), fmt(s.y));
+      $("res-text").textContent =
+        L.resNearest(L.philo[ranked[0].p.id][0], num1(ranked[0].d), L.philo[ranked[1].p.id][0], num1(ranked[1].d)) +
+        (s.answered < 12 ? L.resPartial(s.answered) : "");
+      result.hidden = false;
+    } else if (resultMode === "insufficient") {
+      $("res-title").textContent = L.notEnoughTitle;
+      $("res-coords").textContent = "";
+      $("res-text").textContent = L.notEnoughText;
+      result.hidden = false;
+    } else {
+      result.hidden = true;
+    }
+  }
+
+  function applyLang() {
+    const L = T[lang];
+    document.documentElement.lang = lang;
+    document.title = { en: "Philosophy Compass", de: "Philosophie-Kompass", es: "Brújula filosófica" }[lang];
+    document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    $("t-eyebrow").textContent = L.eyebrow;
+    $("t-h1").textContent = L.h1;
+    $("t-lede").textContent = L.lede;
+    $("t-note").textContent = L.note;
+    $("reset").textContent = L.reset;
+    $("show").textContent = L.show;
+    $("chart-title").textContent = L.chartTitle;
+    secEls.forEach((s, i) => { s.h2.textContent = L.sections[i].title; s.sub.textContent = L.sections[i].sub; });
+    qEls.forEach((q, i) => {
+      q.txt.textContent = L.questions[i];
+      q.labels.forEach((lab, j) => (lab.textContent = L.likert[j]));
+    });
+    for (const k in axisEls) axisEls[k].textContent = L.axes[k];
+    for (const k in quadEls) quadEls[k].textContent = L.quads[k];
+    Object.values(nodes).forEach(nd => {
+      nd.label.textContent = L.philo[nd.p.id][0];
+      nd.g.setAttribute("aria-label", L.philo[nd.p.id][0]);
+    });
+    youTxt.textContent = L.you;
+    renderInfo();
+    update();
+  }
+
+  // ================= Events =================
+  document.querySelectorAll(".lang button").forEach(b =>
+    b.addEventListener("click", () => { lang = b.dataset.lang; store.set(STORE_LANG, lang); applyLang(); })
+  );
+  form.addEventListener("change", () => { update(); saveAnswers(); });
   form.addEventListener("submit", e => {
     e.preventDefault();
-    const s = update(true);
-    if (s.x === null || s.y === null) {
-      result.hidden = false;
-      document.getElementById("res-title").textContent = "Not enough answers yet";
-      document.getElementById("res-coords").textContent = "";
-      document.getElementById("res-text").textContent = "Answer at least one statement in each of the two sections to place yourself on the chart.";
-    }
+    const s = score();
+    resultMode = s.x !== null && s.y !== null ? "ok" : "insufficient";
+    update();
   });
-  document.getElementById("reset").addEventListener("click", () => {
+  $("reset").addEventListener("click", () => {
     form.querySelectorAll("input[type=radio]").forEach(r => (r.checked = false));
-    result.hidden = true;
-    update(false); save();
+    resultMode = null;
+    update(); saveAnswers();
   });
 
-  // per-viewer convenience: remember answers in this browser
-  const KEY = "philosophy-compass-answers";
-  function save() {
-    try {
-      const a = {};
-      form.querySelectorAll("input:checked").forEach(r => (a[r.name] = r.value));
-      localStorage.setItem(KEY, JSON.stringify(a));
-    } catch (e) {}
+  function saveAnswers() {
+    const a = {};
+    form.querySelectorAll("input:checked").forEach(r => (a[r.name] = r.value));
+    store.set(STORE_ANS, JSON.stringify(a));
   }
   try {
-    const a = JSON.parse(localStorage.getItem(KEY) || "{}");
+    const a = JSON.parse(store.get(STORE_ANS) || "{}");
     Object.entries(a).forEach(([k, v]) => {
       const r = form.querySelector(`input[name="${k}"][value="${v}"]`);
       if (r) r.checked = true;
     });
   } catch (e) {}
-  update(false);
+
+  applyLang();
 })();
 </script>
 </body>
