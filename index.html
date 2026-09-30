@@ -6,7 +6,7 @@
 <title>Philosophy Compass</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Gloock&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@400;500&display=swap">
 <style>
 /* Layout: questionnaire column on the left, a sticky "star chart" of thought on the right; stacks on phones. */
 :root {
@@ -20,15 +20,17 @@
   --philo: #18202e;
   --quad-a: rgba(36, 70, 201, 0.05);
   --quad-b: rgba(24, 32, 46, 0.035);
-  --f-display: "Gloock", "Georgia", serif;
-  --f-body: "Source Serif 4", "Georgia", "Times New Roman", serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --veil: rgba(236, 239, 244, 0.78);
+  --f-display: "Gloock", "Noto Serif KR", "Georgia", serif;
+  --f-body: "Source Serif 4", "Noto Serif KR", "Georgia", "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", "Noto Sans KR", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #11151d; --paper: #181e29; --ink: #e4e8f0; --muted: #98a2b6; --rule: #2c3445;
     --accent: #7d97ff; --accent-soft: rgba(125, 151, 255, 0.16); --philo: #e4e8f0;
     --quad-a: rgba(125, 151, 255, 0.07); --quad-b: rgba(228, 232, 240, 0.03);
+    --veil: rgba(17, 21, 29, 0.74);
     color-scheme: dark;
   }
 }
@@ -36,6 +38,7 @@
   --bg: #11151d; --paper: #181e29; --ink: #e4e8f0; --muted: #98a2b6; --rule: #2c3445;
   --accent: #7d97ff; --accent-soft: rgba(125, 151, 255, 0.16); --philo: #e4e8f0;
   --quad-a: rgba(125, 151, 255, 0.07); --quad-b: rgba(228, 232, 240, 0.03);
+    --veil: rgba(17, 21, 29, 0.74);
   color-scheme: dark;
 }
 
@@ -47,7 +50,20 @@ body {
   font-family: var(--f-body); font-size: 16px; line-height: 1.55;
   padding-inline: 20px; padding-block: 28px 48px;
 }
-.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 28px; }
+html:lang(ko) body { word-break: keep-all; }
+html:lang(ko) .scale label { overflow-wrap: break-word; }
+.wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; display: grid; gap: 28px; }
+#particles-js { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#particles-js canvas { display: block; }
+.veil { background: var(--veil); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: 8px; padding: 18px 20px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.anim-toggle {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.04em;
+  border: 1px solid var(--rule); border-radius: 5px; background: var(--paper); color: var(--muted);
+  padding: 7px 12px; cursor: pointer;
+}
+.anim-toggle:hover { color: var(--ink); border-color: var(--accent); }
+.anim-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 header { display: grid; gap: 8px; }
 .top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
 .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
@@ -131,14 +147,20 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
 </head>
 <body>
 
+<div id="particles-js" aria-hidden="true"></div>
+
 <div class="wrap">
-  <header>
+  <header class="veil">
     <div class="top">
       <span class="eyebrow" id="t-eyebrow"></span>
-      <div class="lang" role="group" aria-label="Language / Sprache / Idioma">
+      <div class="controls">
+      <button style="visibility: hidden;" type="button" class="anim-toggle" id="anim-toggle" aria-pressed="false"></button>
+      <div class="lang" role="group" aria-label="Language / Sprache / Idioma / 언어">
         <button type="button" data-lang="en" lang="en">EN</button>
         <button type="button" data-lang="de" lang="de">DE</button>
         <button type="button" data-lang="es" lang="es">ES</button>
+        <button type="button" data-lang="ko" lang="ko">KO</button>
+      </div>
       </div>
     </div>
     <h1 id="t-h1"></h1>
@@ -146,7 +168,7 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
   </header>
 
   <div class="grid">
-    <form class="quiz" id="quiz" novalidate>
+    <form class="quiz veil" id="quiz" novalidate>
       <div id="sections"></div>
 
       <div class="bar">
@@ -181,6 +203,97 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" crossorigin="anonymous"></script>
+<script id="particle-engine">
+// Background: particles.js (Vincent Garreau, MIT) with Erhard's config from particles.json.
+// Changes: colours follow the page theme, events are detected on the window (the canvas sits
+// behind the content), and click-pushed particles are capped so the network stays fast.
+window.ParticleBackground = (function () {
+  if (typeof window.particlesJS !== "function") return null;
+
+  const hexToRgb = hex => {
+    const n = parseInt(hex.replace("#", ""), 16);
+    return { r: n >> 16, g: (n >> 8) & 255, b: n & 255 };
+  };
+  const isDark = () => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+    const m = /^#?([0-9a-f]{6})$/i.exec(v);
+    if (!m) return false;
+    const c = hexToRgb(m[1]);
+    return 0.299 * c.r + 0.587 * c.g + 0.114 * c.b < 128;
+  };
+  const palette = () => isDark() ? { dot: "#e4e8f0", line: "#c3cbe0" } : { dot: "#2446c9", line: "#5a6478" };
+
+  const c = palette();
+  window.particlesJS("particles-js", {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: c.dot },
+      shape: { type: "circle", stroke: { width: 0, color: "#000000" }, polygon: { nb_sides: 5 } },
+      opacity: { value: 0.5, random: false, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+      size: { value: 5, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
+      line_linked: { enable: true, distance: 150, color: c.line, opacity: 0.4, width: 1 },
+      move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+    },
+    interactivity: {
+      detect_on: "window",
+      events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+      modes: {
+        grab: { distance: 400, line_linked: { opacity: 1 } },
+        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+        repulse: { distance: 200 },
+        push: { particles_nb: 4 },
+        remove: { particles_nb: 2 }
+      }
+    },
+    retina_detect: true
+  });
+
+  const pjs = () => window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS;
+  const p = pjs();
+  if (!p) return null;
+
+  // keep the network from growing without bound when people click through the questionnaire
+  const baseCount = p.particles.array.length;
+  window.addEventListener("click", () => {
+    const arr = p.particles.array, max = Math.max(baseCount * 2, baseCount + 60);
+    if (arr.length > max) arr.splice(0, arr.length - max);
+  });
+
+  // recolour in place when the theme changes
+  let dark = isDark();
+  function recolor() {
+    const now = isDark();
+    if (now === dark) return;
+    dark = now;
+    const col = palette(), rgb = hexToRgb(col.dot);
+    p.particles.color.value = col.dot;
+    p.particles.color.rgb = rgb;
+    p.particles.array.forEach(q => { q.color = { value: col.dot, rgb }; });
+    p.particles.line_linked.color = col.line;
+    p.particles.line_linked.color_rgb_line = hexToRgb(col.line);
+    if (paused) p.fn.particlesDraw();
+  }
+  if (window.matchMedia) {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener ? mq.addEventListener("change", recolor) : mq.addListener(recolor);
+  }
+  new MutationObserver(recolor).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "class", "style"] });
+
+  let paused = false;
+  function setPaused(v) {
+    paused = !!v;
+    cancelAnimationFrame(p.fn.drawAnimFrame);
+    p.interactivity.events.onclick.enable = !paused;
+    p.interactivity.events.onhover.enable = !paused;
+    if (!paused) p.fn.vendors.draw();
+  }
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true);
+
+  return { isPaused: () => paused, setPaused };
+})();
+</script>
+
 <script>
 (function () {
   // ================= Texts =================
@@ -210,6 +323,8 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
       ],
       progress: n => `${n} / 12 answered`,
       reset: "Reset",
+      animPause: "Pause background",
+      animPlay: "Play background",
       show: "Show my result",
       note: "A deliberately simplified model. Real positions rarely fit two dimensions: Kant, for instance, is an empirical realist and a transcendental idealist at once. Treat the chart as a conversation starter, not a verdict.",
       chartTitle: "Philosophy matrix with fixed positions of Plato, Kant, Confucius, Sartre, Beauvoir, Žižek and your own position",
@@ -263,6 +378,8 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
       ],
       progress: n => `${n} / 12 beantwortet`,
       reset: "Zurücksetzen",
+      animPause: "Hintergrund pausieren",
+      animPlay: "Hintergrund abspielen",
       show: "Mein Ergebnis anzeigen",
       note: "Ein bewusst vereinfachtes Modell. Reale Positionen passen selten in zwei Dimensionen: Kant etwa ist zugleich empirischer Realist und transzendentaler Idealist. Das Diagramm ist ein Gesprächsanlass, kein Urteil.",
       chartTitle: "Philosophie-Matrix mit den festen Positionen von Platon, Kant, Konfuzius, Sartre, Beauvoir, Žižek und deiner eigenen Position",
@@ -316,6 +433,8 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
       ],
       progress: n => `${n} / 12 respondidas`,
       reset: "Reiniciar",
+      animPause: "Pausar fondo",
+      animPlay: "Reanudar fondo",
       show: "Mostrar mi resultado",
       note: "Un modelo deliberadamente simplificado. Las posiciones reales rara vez caben en dos dimensiones: Kant, por ejemplo, es a la vez realista empírico e idealista trascendental. Toma el gráfico como punto de partida para conversar, no como veredicto.",
       chartTitle: "Matriz filosófica con las posiciones fijas de Platón, Kant, Confucio, Sartre, Beauvoir, Žižek y tu propia posición",
@@ -342,6 +461,61 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
         sartre: ["Sartre", "La existencia precede a la esencia. No hay una naturaleza humana dada; los valores y el sentido surgen solo de la libre elección del individuo en su situación concreta."],
         beauvoir: ["Beauvoir", "Existencialista como Sartre: no se nace con una esencia fija, sino que se llega a ser quien se es. La libertad siempre está situada en condiciones corporales y sociales concretas."],
         zizek: ["Žižek", "Se define como materialista dialéctico. La realidad no es armónica ni cerrada, sino que está atravesada por una grieta y una contradicción internas: lo Real lacaniano."]
+      }
+    },
+    ko: {
+      eyebrow: "인식론 × 존재론",
+      h1: "당신은 철학에서 어디에 서 있나요?",
+      lede: "12개의 진술, 두 개의 축. 가로축은 우리가 어떻게 앎에 이르는지(객관적 진리인가, 상대적 관점인가)를 묻습니다. 세로축은 현실이 궁극적으로 무엇에 기반하는지(관념과 본질인가, 물질과 실존인가)를 묻습니다. 답할 때마다 당신의 점이 움직입니다.",
+      likert: ["전혀 동의하지 않음", "동의하지 않음", "보통", "동의함", "매우 동의함"],
+      sections: [
+        { title: "우리는 어떻게 아는가?", sub: "인식론 · 객관주의 대 상대주의" },
+        { title: "무엇이 실재하는가?", sub: "존재론 · 관념과 본질 대 물질과 실존" }
+      ],
+      questions: [
+        "어떤 개인이나 문화가 무엇을 믿든 상관없이 성립하는 진리가 있다.",
+        "도덕적 판단은 결국 문화적 또는 개인적 관점의 표현이다.",
+        "수학은 우리가 발명한 체계가 아니라 우리가 발견하는 실재를 기술한다.",
+        "무엇이 지식으로 인정되는지는 대체로 그것을 인정하는 공동체에 달려 있다.",
+        "두 사람이 사실 문제에 대해 의견이 다르다면, 적어도 한 사람은 틀린 것이다.",
+        "'어디에도 속하지 않은 관점'은 없다. 모든 주장은 그 주장을 하는 사람의 입장에 의해 형성된다.",
+        "정신이나 의식은 물질보다 더 근본적이다.",
+        "인간에게는 무엇이 되어야 하는지를 규정하는 주어진 본성이 있다.",
+        "우리는 먼저 존재하고, 그 후에야 선택을 통해 우리가 누구인지를 정한다.",
+        "사고를 포함한 모든 것은 원칙적으로 물리적 과정으로 설명될 수 있다.",
+        "정의나 아름다움 같은 이념은 어떤 의미에서 그것을 드러내는 구체적 사물을 넘어 존재한다.",
+        "삶의 물질적 조건이 의식을 형성하는 힘은 의식이 그 조건을 형성하는 힘보다 크다."
+      ],
+      progress: n => `${n} / 12 응답 완료`,
+      reset: "초기화",
+      animPause: "배경 일시정지",
+      animPlay: "배경 재생",
+      show: "내 결과 보기",
+      note: "의도적으로 단순화한 모델입니다. 실제 입장은 두 차원에 잘 들어맞지 않는 경우가 많습니다. 예를 들어 칸트는 경험적 실재론자이면서 동시에 초월적 관념론자입니다. 이 도표는 판정이 아니라 대화의 출발점으로 받아들이세요.",
+      chartTitle: "플라톤, 칸트, 공자, 사르트르, 보부아르, 지젝의 고정된 위치와 당신의 위치를 보여주는 철학 매트릭스",
+      axes: { top: "관념론 · 본질", bottom: "유물론 · 실존", left: "상대주의", right: "객관주의" },
+      quads: { tl: "상대적 관념론", tr: "객관적 관념론", bl: "실존적 상대주의", br: "객관적 유물론" },
+      you: "나",
+      infoName: "기준점",
+      infoCoords: "도표에서 사상가를 선택하세요",
+      infoText: "여섯 명의 사상가는 고정된 기준점입니다. 한 명을 탭하거나 클릭하면 왜 그 자리에 있는지 읽을 수 있습니다. 각 축에서 적어도 한 문항에 답하면 당신의 위치가 파란색으로 나타납니다.",
+      resCoords: (x, y) => `x ${x} (객관주의)  ·  y ${y} (관념론)`,
+      resNearest: (a, d1, b, d2) => `가장 가까운 기준점: ${a} (거리 ${d1}), 그다음은 ${b} (${d2}).`,
+      resPartial: n => ` 12개 중 ${n}개의 응답을 기준으로 합니다.`,
+      notEnoughTitle: "아직 응답이 부족합니다",
+      notEnoughText: "도표에 위치를 표시하려면 두 영역에서 각각 적어도 한 문항에 답하세요.",
+      quadName: {
+        "obj-ide": "객관주의적이고 관념론적", "obj-mid": "객관주의적, 관념과 물질 사이", "obj-mat": "객관주의적이고 유물론적",
+        "bal-ide": "인식론적으로 균형, 관념론적", "bal-mid": "중심 부근", "bal-mat": "인식론적으로 균형, 유물론적 / 실존주의적",
+        "rel-ide": "상대주의적이고 관념론적", "rel-mid": "상대주의적, 관념과 물질 사이", "rel-mat": "상대주의적이고 실존주의적 / 유물론적"
+      },
+      philo: {
+        plato: ["플라톤", "영원하고 불변하는 형상(이데아)을 가장 참된 실재로 보고 철학의 토대로 삼습니다. 엄격한 객관주의자로서, 진리는 절대적이며 인간의 의견과 무관하게 존재한다고 봅니다."],
+        kant: ["임마누엘 칸트", "초월적 관념론. 세계는 존재하지만, 우리가 그것을 경험하는 방식은 공간, 시간, 인과성 같은 정신의 구조에 의해 필연적으로 형성됩니다."],
+        confucius: ["공자", "추상적 형이상학을 피하고 삶의 실천에 집중합니다. 앎과 도덕은 믿음직한 행동(信)과 사회적 관계 및 예(禮)를 지키는 데서 증명됩니다."],
+        sartre: ["사르트르", "실존은 본질에 앞선다. 주어진 인간 본성은 없으며, 가치와 의미는 구체적 상황 속 개인의 자유로운 선택을 통해서만 생겨납니다."],
+        beauvoir: ["보부아르", "사르트르와 같은 실존주의자입니다. 사람은 고정된 본질을 갖고 태어나는 것이 아니라 자신이 되어 갑니다. 자유는 언제나 구체적인 신체적·사회적 조건 속에 놓여 있습니다."],
+        zizek: ["지젝", "스스로를 변증법적 유물론자로 규정합니다. 현실은 조화롭거나 닫혀 있지 않으며, 내적 균열과 모순, 즉 라캉적 실재에 의해 관통되어 있습니다."]
       }
     }
   };
@@ -555,7 +729,7 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
   function applyLang() {
     const L = T[lang];
     document.documentElement.lang = lang;
-    document.title = { en: "Philosophy Compass", de: "Philosophie-Kompass", es: "Brújula filosófica" }[lang];
+    document.title = { en: "Philosophy Compass", de: "Philosophie-Kompass", es: "Brújula filosófica", ko: "철학 나침반" }[lang];
     document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     $("t-eyebrow").textContent = L.eyebrow;
     $("t-h1").textContent = L.h1;
@@ -576,9 +750,23 @@ fieldset.section { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; m
       nd.g.setAttribute("aria-label", L.philo[nd.p.id][0]);
     });
     youTxt.textContent = L.you;
+    renderAnimToggle();
     renderInfo();
     update();
   }
+
+  const animBtn = $("anim-toggle");
+  function renderAnimToggle() {
+    const paused = window.ParticleBackground ? window.ParticleBackground.isPaused() : true;
+    animBtn.textContent = paused ? T[lang].animPlay : T[lang].animPause;
+    animBtn.setAttribute("aria-pressed", String(paused));
+    animBtn.hidden = !window.ParticleBackground;
+  }
+  animBtn.addEventListener("click", () => {
+    if (!window.ParticleBackground) return;
+    window.ParticleBackground.setPaused(!window.ParticleBackground.isPaused());
+    renderAnimToggle();
+  });
 
   // ================= Events =================
   document.querySelectorAll(".lang button").forEach(b =>
